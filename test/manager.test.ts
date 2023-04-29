@@ -2,8 +2,10 @@ import { providers, Signer, Wallet } from 'ethers';
 import * as dotenv from 'dotenv';
 import { Manager } from '../src/manager';
 import { InvalidChainError } from '../src/lib/errors';
-import './reference/setup';
 
+// import hardhat
+const hre = require('hardhat');
+/*import { ethers } from 'hardhat';*/
 
 describe('Manager', () => {
   // load the dotenv

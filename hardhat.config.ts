@@ -1,9 +1,13 @@
 require('dotenv').config();
+import '@nomiclabs/hardhat-ethers';
 import { HardhatUserConfig } from 'hardhat/config';
-import 'hardhat';
+
+// get the chain id
+let chainId = parseInt(process.env.CHAIN_ID);
 
 // set the url as a string
 let url: string = '';
+
 if (chainId == 80001) {
   url = process.env.MUMBAI_RPC;
 }
