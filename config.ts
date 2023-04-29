@@ -14,4 +14,5 @@ export default defineConfig({
       VaultDeployer: "0x33334081Bb86EDDDa17ac9c90E347Dd0ec2EDed9"
     },
   },
+  outputPath: "./src/base"
 })

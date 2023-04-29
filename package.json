@@ -2,10 +2,12 @@
   "devDependencies": {
     "@dethcrypto/eth-sdk": "^0.3.3",
     "@dethcrypto/eth-sdk-client": "^0.1.6",
+    "test": "^3.3.0",
     "typescript": "^5.0.4"
   },
   "dependencies": {
     "ethers": "^5.7.2",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "tsdx": "^0.14.1"
   }
 }
