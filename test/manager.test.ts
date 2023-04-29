@@ -20,7 +20,7 @@ describe('Manager', () => {
 
   describe('constructor', () => {
     it('should throw an error for an invalid chain id', () => {
-      expect(() => new Manager(12345, user)).toThrowError('Invalid Chain Id');
+      expect(() => new Manager(12345, user)).toThrowError(InvalidChainError);
     });
 
     it('should not throw an error for a valid chain id', () => {
