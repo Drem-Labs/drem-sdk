@@ -6,7 +6,7 @@ import { InvalidChainError } from "./lib/errors";
 type GetSdkType = (defaultSignerOrProvider: Signer | providers.Provider) => any;
 
 // want to abstract away the chain, so do so here
-export class Manager {
+export class DremManager {
     // keep chain & access information
     chainId: number;
     defaultSignerOrProvider: Signer | providers.Provider;

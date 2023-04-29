@@ -9,4 +9,5 @@ export declare function getPolygonMumbaiSdk(defaultSignerOrProvider: Signer | pr
     PriceAggreagtor: types.polygonMumbai.PriceAggreagtor;
     AssetRegistry: types.polygonMumbai.AssetRegistry;
     VaultDeployer: types.polygonMumbai.VaultDeployer;
+    Vault: types.polygonMumbai.Vault;
 };

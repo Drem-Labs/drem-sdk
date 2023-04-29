@@ -1,13 +1,13 @@
 import { providers, Signer, Wallet } from 'ethers';
 import * as dotenv from 'dotenv';
-import { Manager } from '../src/manager';
+import { DremManager } from '../src/manager';
 import { InvalidChainError } from '../src/lib/errors';
 
 // import hardhat
 const hre = require('hardhat');
 /*import { ethers } from 'hardhat';*/
 
-describe('Manager', () => {
+describe('DremManager', () => {
   // load the dotenv
   dotenv.config();
 
@@ -20,18 +20,18 @@ describe('Manager', () => {
 
   describe('constructor', () => {
     it('should throw an error for an invalid chain id', () => {
-      expect(() => new Manager(12345, user)).toThrowError(InvalidChainError);
+      expect(() => new DremManager(12345, user)).toThrowError(InvalidChainError);
     });
 
     it('should not throw an error for a valid chain id', () => {
-      expect(() => new Manager(chainId, user)).not.toThrow();
+      expect(() => new DremManager(chainId, user)).not.toThrow();
     });
   });
 
   // test that deploying an sdk does not throw an error
   describe('sdk', () => {
     it('should not throw an error when creating an sdk with this chain id', () => {
-      const manager  = new Manager(chainId, user);
+      const manager  = new DremManager(chainId, user);
 
       expect(() => {
         manager.sdk();

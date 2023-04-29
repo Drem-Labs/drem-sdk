@@ -11,7 +11,8 @@ export default defineConfig({
       FeeController: "0x9f814Ff3fE04099cDD04Ad93C0307fE09F8194f9",
       PriceAggreagtor: "0xd804c3DF1AB160fc7cb406F9902ea3be43107e42",
       AssetRegistry: "0x6dC1CD636fd04C437F48d61d92C4CC2AccBAC1cB",
-      VaultDeployer: "0x33334081Bb86EDDDa17ac9c90E347Dd0ec2EDed9"
+      VaultDeployer: "0x33334081Bb86EDDDa17ac9c90E347Dd0ec2EDed9",
+      Vault: "0xfbD21fC5300fEa410E6786eb0C5A663009230097"
     },
   },
   outputPath: "./src/base"

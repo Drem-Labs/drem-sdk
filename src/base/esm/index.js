@@ -5,6 +5,7 @@ import polygonMumbai_FeeController_abi from '../../../abis/polygonMumbai/FeeCont
 import polygonMumbai_PriceAggreagtor_abi from '../../../abis/polygonMumbai/PriceAggreagtor.json';
 import polygonMumbai_AssetRegistry_abi from '../../../abis/polygonMumbai/AssetRegistry.json';
 import polygonMumbai_VaultDeployer_abi from '../../../abis/polygonMumbai/VaultDeployer.json';
+import polygonMumbai_Vault_abi from '../../../abis/polygonMumbai/Vault.json';
 export function getContract(address, abi, defaultSignerOrProvider) {
     return new Contract(address, abi, defaultSignerOrProvider);
 }
@@ -16,5 +17,6 @@ export function getPolygonMumbaiSdk(defaultSignerOrProvider) {
         "PriceAggreagtor": getContract('0xd804c3DF1AB160fc7cb406F9902ea3be43107e42', polygonMumbai_PriceAggreagtor_abi, defaultSignerOrProvider),
         "AssetRegistry": getContract('0x6dC1CD636fd04C437F48d61d92C4CC2AccBAC1cB', polygonMumbai_AssetRegistry_abi, defaultSignerOrProvider),
         "VaultDeployer": getContract('0x33334081Bb86EDDDa17ac9c90E347Dd0ec2EDed9', polygonMumbai_VaultDeployer_abi, defaultSignerOrProvider),
+        "Vault": getContract('0xfbD21fC5300fEa410E6786eb0C5A663009230097', polygonMumbai_Vault_abi, defaultSignerOrProvider),
     };
 }
