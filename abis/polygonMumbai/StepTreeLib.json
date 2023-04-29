@@ -1,0 +1,1 @@
+[{"inputs":[],"name":"NodeWindPercentTooLarge","type":"error"},{"inputs":[],"name":"NonRootNodeNullParent","type":"error"},{"inputs":[],"name":"NonRootNodeWindPercentZero","type":"error"},{"inputs":[],"name":"RootNodeNonNullParent","type":"error"},{"inputs":[],"name":"RootWindPercentNotZero","type":"error"}]
