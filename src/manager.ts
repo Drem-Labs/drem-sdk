@@ -20,8 +20,8 @@ export class Manager {
     // set the chain id to direct which sdk to provide
     constructor(chainId: number, defaultSignerOrProvider: Signer | providers.Provider) {
         // validate the input(s)
-        if (!(chainId in sdks)) {
-            throw new InvalidChainError();
+        if (!(chainId in this.sdks)) {
+            throw new InvalidChainError("Chain options: 137, 80001");
         }
 
         // set the chain and access information
@@ -31,6 +31,6 @@ export class Manager {
 
     // get an sdk
     sdk() {
-        return sdks[this.chainId](this.defaultSignerOrProvider);
+        return this.sdks[this.chainId](this.defaultSignerOrProvider);
     }
 }

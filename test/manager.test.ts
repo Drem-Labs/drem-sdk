@@ -1,29 +1,41 @@
 import { providers, Signer, Wallet } from 'ethers';
+import * as dotenv from 'dotenv';
 import { Manager } from '../src/manager';
 import { InvalidChainError } from '../src/lib/errors';
+import './reference/setup';
+
 
 describe('Manager', () => {
-  const defaultSignerOrProvider: Signer | providers.Provider = new Wallet();
+  // load the dotenv
+  dotenv.config();
+
+  // set the chain id
+  const chainId = parseInt(process.env.CHAIN_ID);
+
+
+  // create some random user to work with everything
+  const user = Wallet.createRandom();
 
   describe('constructor', () => {
     it('should throw an error for an invalid chain id', () => {
-      expect(() => new Manager(12345, defaultSignerOrProvider)).toThrowError(InvalidChainError);
+      expect(() => new Manager(12345, user)).toThrowError('Invalid Chain Id');
     });
 
     it('should not throw an error for a valid chain id', () => {
-      expect(() => new Manager(80001, defaultSignerOrProvider)).not.toThrow();
+      expect(() => new Manager(chainId, user)).not.toThrow();
     });
   });
 
+  // test that deploying an sdk does not throw an error
   describe('sdk', () => {
-    it('should return an SDK for a valid chain id', () => {
-      const manager = new Manager(80001, defaultSignerOrProvider);
-      expect(manager.sdk()).toBeDefined();
+    it('should not throw an error when creating an sdk with this chain id', () => {
+      const manager  = new Manager(chainId, user);
+
+      expect(() => {
+        manager.sdk();
+      }).not.toThrow();
     });
 
-    it('should throw an error for an invalid chain id', () => {
-      const manager = new Manager(12345, defaultSignerOrProvider);
-      expect(() => manager.sdk()).toThrowError(InvalidChainError);
-    });
+    // the manager should never even be able to be created with an invalid chain id --> can assume that the sdk could not even attempt to be created
   });
 });
