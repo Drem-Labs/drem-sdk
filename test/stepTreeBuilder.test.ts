@@ -1,16 +1,15 @@
 import { providers, Signer, Wallet } from 'ethers';
 import * as dotenv from 'dotenv';
 import { DremManager } from '../src/manager';
-import { Vault } from '../src/vault';
+import { StepTreeBuilder } from '../src/stepTreeBuilder';
 import { InvalidChainError } from '../src/lib/errors';
 
 // import hardhat
 const hre = require('hardhat');
 
-describe('Vault', () => {
+describe('StepTreeBuilder', () => {
   // load the dotenv
   dotenv.config();
-
 
   // set the chain id
   const chainId = parseInt(process.env.CHAIN_ID);
@@ -21,15 +20,11 @@ describe('Vault', () => {
   // create a manager to work with everything
   const manager = new DremManager(chainId, user);
 
-
-  // set the vault address
-    // note: temporarily hardcoded, but we will use the deployer once it has been built
-  const vaultAddress = "0xfbD21fC5300fEa410E6786eb0C5A663009230097";
-
   describe('constructor', () => {
-    it('should create a vault', () => {
+    it('should create a step tree builder', () => {
       expect(() => {
-        var vault = new Vault(manager, vaultAddress);
+        var stepTree = new StepTreeBuilder(manager);
+        console.log(stepTree.tree);
       }).not.toThrow();
     });
   });
