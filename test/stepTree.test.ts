@@ -1,13 +1,13 @@
 import { providers, Signer, Wallet } from 'ethers';
 import * as dotenv from 'dotenv';
 import { DremManager } from '../src/manager';
-import { StepTreeBuilder } from '../src/stepTreeBuilder';
+import { StepTree } from '../src/stepTree';
 import { InvalidChainError } from '../src/lib/errors';
 
 // import hardhat
 const hre = require('hardhat');
 
-describe('StepTreeBuilder', () => {
+describe('StepTree', () => {
   // load the dotenv
   dotenv.config();
 
@@ -23,8 +23,7 @@ describe('StepTreeBuilder', () => {
   describe('constructor', () => {
     it('should create a step tree builder', () => {
       expect(() => {
-        var stepTree = new StepTreeBuilder(manager);
-        console.log(stepTree.tree);
+        var stepTree = new StepTree(manager);
       }).not.toThrow();
     });
   });

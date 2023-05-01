@@ -10,4 +10,7 @@ export declare function getPolygonMumbaiSdk(defaultSignerOrProvider: Signer | pr
     AssetRegistry: types.polygonMumbai.AssetRegistry;
     VaultDeployer: types.polygonMumbai.VaultDeployer;
     Vault: types.polygonMumbai.Vault;
+    steps: {
+        TransferStep: types.polygonMumbai.steps.TransferStep;
+    };
 };

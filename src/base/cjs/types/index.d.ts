@@ -11,6 +11,8 @@ export type { PriceAggreagtor } from "./polygonMumbai/PriceAggreagtor";
 export { PriceAggreagtor__factory } from "./factories/polygonMumbai/PriceAggreagtor__factory";
 export type { PriceAggregator } from "./polygonMumbai/PriceAggregator";
 export { PriceAggregator__factory } from "./factories/polygonMumbai/PriceAggregator__factory";
+export type { TransferStep } from "./polygonMumbai/steps/TransferStep";
+export { TransferStep__factory } from "./factories/polygonMumbai/steps/TransferStep__factory";
 export type { StepTreeLib } from "./polygonMumbai/StepTreeLib";
 export { StepTreeLib__factory } from "./factories/polygonMumbai/StepTreeLib__factory";
 export type { Vault } from "./polygonMumbai/Vault";

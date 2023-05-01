@@ -1,4 +1,6 @@
-import { InvalidPercentError, NodeOutOfBounds } from '../lib/errors';
+import { NodeOutOfBounds } from '../lib/errors';
+import { BaseStep } from '../steps/BaseStep';
+import { Percent } from './Percent';
 
 // precision factor (for nodes)
 const PRECISION_FACTOR = 1_000_000;
@@ -8,52 +10,62 @@ const MAX_NODES = 10;
 const MAX_PARENT = MAX_NODES - 1;
 const MAX_CHILDREN = MAX_NODES - 1;
 
-// a simple class for defining percentages
-class Percent extends number {
-    constructor(value: number) {
-        if ( (value < 0) || (value > 1) ) {
-            throw InvalidPercentError('Percent must be between 0 and 1');
-        }
-
-        // no error --> assign the value
-        this = value;
-    }
-}
-
 // need to have safe setters, as these are complex
+// note: these nodes do NOT need to have children, as these will be assigned in the smart contract
+    // nodes point up --> just have information about themselves and where they come from
 // these nodes must be exportable into step info --> should be connected with more than an address
-    // should be a step, which has an address typ
-export class Node<StepType> {
-    parent: bigint;
-    key: bigint;
-    step: StepType;  // needs to be a step with more complex information
+    // should be a step, which has an address type
+export class Node {
+    parentIndex: number;
+    key: number;
+    step: BaseStep;  // needs to be a step with more complex information
     windPercent: Percent;
 
+    children: number[9]; // each node can have up to 9 children, this is for internal accounting with the step tree
+
     // constructor --> set everything at once
-    constructor(parent: bigint, key: bigint, step: StepType, windPercent: number) {
+    constructor(parentIndex: number, key: number, step: BaseStep, windPercent: number) {
         // set all the variables with their setters
-        setParent(parent);
-        setKey(key);
-        setStep(step);
-        setWindPercent(number);
+        this.setParentIndex(parentIndex);
+        this.setKey(key);
+        this.setStep(step);
+        this.setWindPercent(number);
     }
 
     // safe setters and getters
-    // just set the parent, make sure it is inside bounds
-    setParent(parent: bigint): void {
-        if (parent > MAX_PARENT) {
-            throw NodeOutOfBounds('Cannot have a parent over length ' + MAX_PARENT);
+    // just set the parentIndex, make sure it is inside bounds
+    setParentIndex(parentIndex: number): void {
+        if (parentIndex > MAX_PARENT) {
+            throw NodeOutOfBounds('Cannot have a parentIndex over length ' + MAX_PARENT);
+        }
+        else if (!Number.isInteger(parentIndex)) {
+            throw NodeOutOfBounds('Cannot have a non-integer parentIndex');
         }
 
-        // set the parent
-        this.parent = parent;
+        // set the parentIndex
+        this.parentIndex = parentIndex;
     }
 
-    // keys must be between 0 and tthe max nodes
+    // keys must be between 0 and the max nodes
+    setKey(key: number): void {
+        if ((key < 0) || (key > MAX_NODES)) {
+            throw NodeOutOfBounds('Nodes cannot have an index greater than ' + MAX_NODES);
+        }
+        else if (!Number.isInteger(parentIndex)) {
+            throw NodeOutOfBounds('Cannot have a non-integer key');
+        }
+
+        // save the key
+        this.key = key;
+    }
+
+    // set the step
+    setStep(step: BaseStep): void {
+
+    }
+
 
     // export to stepInfo
-    // need to convert the wind percent into a bigint with the precision factor
-    toStruct(): [bigint, bigint[9], bigint, string, bigint] {
-        var adjWindPercent:bigint = <bigint>(windPercent * PRECISION_FACTOR);
-    }
+    // should check the wind percents of its children --> ensures that all below this node are valid
+    // need to convert the wind percent into a number with the precision factor
 }

@@ -1,3 +1,4 @@
+export * as steps from "./steps";
 export { AssetRegistry__factory } from "./AssetRegistry__factory";
 export { DremHub__factory } from "./DremHub__factory";
 export { FeeController__factory } from "./FeeController__factory";

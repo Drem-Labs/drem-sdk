@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VaultDeployer__factory = exports.Vault__factory = exports.StepTreeLib__factory = exports.PriceAggregator__factory = exports.PriceAggreagtor__factory = exports.FeeController__factory = exports.DremHub__factory = exports.AssetRegistry__factory = exports.factories = void 0;
+exports.VaultDeployer__factory = exports.Vault__factory = exports.StepTreeLib__factory = exports.TransferStep__factory = exports.PriceAggregator__factory = exports.PriceAggreagtor__factory = exports.FeeController__factory = exports.DremHub__factory = exports.AssetRegistry__factory = exports.factories = void 0;
 exports.factories = __importStar(require("./factories"));
 var AssetRegistry__factory_1 = require("./factories/polygonMumbai/AssetRegistry__factory");
 Object.defineProperty(exports, "AssetRegistry__factory", { enumerable: true, get: function () { return AssetRegistry__factory_1.AssetRegistry__factory; } });
@@ -35,6 +35,8 @@ var PriceAggreagtor__factory_1 = require("./factories/polygonMumbai/PriceAggreag
 Object.defineProperty(exports, "PriceAggreagtor__factory", { enumerable: true, get: function () { return PriceAggreagtor__factory_1.PriceAggreagtor__factory; } });
 var PriceAggregator__factory_1 = require("./factories/polygonMumbai/PriceAggregator__factory");
 Object.defineProperty(exports, "PriceAggregator__factory", { enumerable: true, get: function () { return PriceAggregator__factory_1.PriceAggregator__factory; } });
+var TransferStep__factory_1 = require("./factories/polygonMumbai/steps/TransferStep__factory");
+Object.defineProperty(exports, "TransferStep__factory", { enumerable: true, get: function () { return TransferStep__factory_1.TransferStep__factory; } });
 var StepTreeLib__factory_1 = require("./factories/polygonMumbai/StepTreeLib__factory");
 Object.defineProperty(exports, "StepTreeLib__factory", { enumerable: true, get: function () { return StepTreeLib__factory_1.StepTreeLib__factory; } });
 var Vault__factory_1 = require("./factories/polygonMumbai/Vault__factory");

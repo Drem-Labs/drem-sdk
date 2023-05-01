@@ -1,3 +1,5 @@
+import type * as steps from "./steps";
+export type { steps };
 export type { AssetRegistry } from "./AssetRegistry";
 export type { DremHub } from "./DremHub";
 export type { FeeController } from "./FeeController";
