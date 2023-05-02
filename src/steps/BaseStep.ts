@@ -1,10 +1,8 @@
 export class BaseStep {
-    base: any;
     // address is accessible from base, no need to rewrite it
+    base: any;
 
-    // constructor, which sets the easy-access address and the base
-    constructor(base: any) {
-        // set the base
-        this.base = base;
-    }
+    // should be able to store fixed arg data, as this should not be stored in the node
+    // best to store this arg data here, as it should depend on the vault --> can give the frontend more information about what the step will do
+    fixedArgData: string;
 }

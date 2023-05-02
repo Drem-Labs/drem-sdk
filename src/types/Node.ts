@@ -16,12 +16,13 @@ const MAX_CHILDREN = MAX_NODES - 1;
 // these nodes must be exportable into step info --> should be connected with more than an address
     // should be a step, which has an address type
 export class Node {
-    parentIndex: number;
-    key: number;
-    step: BaseStep;  // needs to be a step with more complex information
-    windPercent: Percent;
+    // make all the information readonly, so only the setters can change them
+    private parentIndex: number;
+    private key: number;
+    private step: BaseStep;  // needs to be a step with more complex information
+    private windPercent: Percent;
 
-    children: number[]; // each node can have up to 9 children, this is for internal accounting with the step tree
+    private children: number[]; // each node can have up to 9 children, this is for internal accounting with the step tree
 
     // constructor --> set everything at once
     constructor(parentIndex: number, key: number, step: BaseStep, windPercent: number) {
@@ -91,12 +92,41 @@ export class Node {
 
     // replace a child
 
+    // getters
+    getParentIndex(): number {
+        return this.parentIndex;
+    }
+
+    getKey(): number {
+        return this.key;
+    }
+
+    getStep(): BaseStep {
+        return this.step;
+    }
+
+    getWindPercent(): number {
+        return this.windPercent.value;
+    }
+
+    getChild(index: number): number {
+        return this.children[index];
+    }
+
+    getChildren(): number[] {
+        return this.children;
+    }
+
+    getChildrenLength(): number {
+        return this.children.length;
+    }
+
     // export to stepInfo
     // should check the wind percents of its children --> ensures that all below this node are valid
     // need to convert the wind percent into a number with the precision factor
 
     // validate child
-    _validateKey(key: number): void {
+    private _validateKey(key: number): void {
         // ensure that the key is an integer, as it won't throw until much later
         // index should be safe, as this will throw here
         if (!Number.isInteger(key)) {

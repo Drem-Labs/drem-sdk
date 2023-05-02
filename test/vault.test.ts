@@ -1,4 +1,4 @@
-import { providers, Signer, Wallet } from 'ethers';
+import { Wallet } from 'ethers';
 import * as dotenv from 'dotenv';
 import { DremManager } from '../src/manager';
 import { Vault } from '../src/vault';
@@ -11,7 +11,6 @@ describe('Vault', () => {
   // load the dotenv
   dotenv.config();
 
-
   // set the chain id
   const chainId = parseInt(process.env.CHAIN_ID);
 
@@ -20,7 +19,6 @@ describe('Vault', () => {
 
   // create a manager to work with everything
   const manager = new DremManager(chainId, user);
-
 
   // set the vault address
     // note: temporarily hardcoded, but we will use the deployer once it has been built

@@ -14,12 +14,12 @@ export class Vault {
     }
 
     // need to return the totalValue (account for decimals)
-    totalValue(): number {
-        // get the important values from the smart contract
 
-        // return the total value in number format
-        return 0;
-    }
+    // get the tree (this will be complex)
+
+    // wind --> pass sharesIn
+
+    // unwind --> pass sharesOut
 }
 
 /*

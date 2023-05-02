@@ -16,7 +16,7 @@ else if (chainId == 137) {
 }
 
 const config: HardhatUserConfig = {
-  solidity: '0.8.4',
+  solidity: '0.8.10',
   networks: {
     hardhat: {
       forking: {
