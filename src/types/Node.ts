@@ -1,4 +1,4 @@
-import { NodeOutOfBounds } from '../lib/errors';
+import { NodeOutOfBoundsError } from '../lib/errors';
 import { BaseStep } from '../steps/BaseStep';
 import { Percent } from './Percent';
 
@@ -21,7 +21,7 @@ export class Node {
     step: BaseStep;  // needs to be a step with more complex information
     windPercent: Percent;
 
-    children: number[9]; // each node can have up to 9 children, this is for internal accounting with the step tree
+    children: number[]; // each node can have up to 9 children, this is for internal accounting with the step tree
 
     // constructor --> set everything at once
     constructor(parentIndex: number, key: number, step: BaseStep, windPercent: number) {
@@ -29,18 +29,18 @@ export class Node {
         this.setParentIndex(parentIndex);
         this.setKey(key);
         this.setStep(step);
-        this.setWindPercent(number);
+        this.setWindPercent(windPercent);
     }
 
     // safe setters and getters
     // just set the parentIndex, make sure it is inside bounds
     setParentIndex(parentIndex: number): void {
         if (parentIndex > MAX_PARENT) {
-            throw NodeOutOfBounds('Cannot have a parentIndex over length ' + MAX_PARENT);
+            throw new NodeOutOfBoundsError('Cannot have a parentIndex over length ' + MAX_PARENT);
         }
-        else if (!Number.isInteger(parentIndex)) {
-            throw NodeOutOfBounds('Cannot have a non-integer parentIndex');
-        }
+
+        // validate the parent as a key
+        this._validateKey(parentIndex);
 
         // set the parentIndex
         this.parentIndex = parentIndex;
@@ -48,12 +48,8 @@ export class Node {
 
     // keys must be between 0 and the max nodes
     setKey(key: number): void {
-        if ((key < 0) || (key > MAX_NODES)) {
-            throw NodeOutOfBounds('Nodes cannot have an index greater than ' + MAX_NODES);
-        }
-        else if (!Number.isInteger(parentIndex)) {
-            throw NodeOutOfBounds('Cannot have a non-integer key');
-        }
+        // validate the key
+        this._validateKey(key);
 
         // save the key
         this.key = key;
@@ -61,11 +57,53 @@ export class Node {
 
     // set the step
     setStep(step: BaseStep): void {
-
+        this.step = step;
     }
 
+    // set the wind percent
+    setWindPercent(windPercent: number): void {
+        this.windPercent = new Percent(windPercent);
+    }
+
+    // push a child (simpler operation, goes to end of children)
+    pushChild(childKey: number): void {
+        // validate the key
+        this._validateKey(childKey);
+
+        // ensure that the children don't have too many nodes
+        if (this.children.length >= MAX_CHILDREN) {
+            throw new NodeOutOfBoundsError('children already full');
+        }
+
+        // add the child into the last slot of the array
+        this.children.push(childKey);
+    }
+
+    // add a child
+    addChild(childIndex: number, childKey: number): void {
+        // validate both of them as keys (essentially the same)
+        this._validateKey(childIndex);
+        this._validateKey(childKey);
+
+        // splice the child in where it is supposed to go
+        this.children.splice(childIndex, 0, childKey)
+    }
+
+    // replace a child
 
     // export to stepInfo
     // should check the wind percents of its children --> ensures that all below this node are valid
     // need to convert the wind percent into a number with the precision factor
+
+    // validate child
+    _validateKey(key: number): void {
+        // ensure that the key is an integer, as it won't throw until much later
+        // index should be safe, as this will throw here
+        if (!Number.isInteger(key)) {
+            throw new NodeOutOfBoundsError('key must be an integer');
+        }
+        else if ((key < 0) || (key > MAX_NODES)) {
+            throw new NodeOutOfBoundsError('Nodes cannot have an index greater than ' + MAX_NODES);
+        }
+    }
 }

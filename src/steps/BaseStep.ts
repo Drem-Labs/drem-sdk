@@ -1,6 +1,5 @@
 export class BaseStep {
     base: any;
-
     // address is accessible from base, no need to rewrite it
 
     // constructor, which sets the easy-access address and the base

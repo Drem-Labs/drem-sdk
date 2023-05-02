@@ -1,7 +1,7 @@
 import { InvalidPercentError } from '../lib/errors';
 
 // a simple class for defining percentages
-export class Percent extends number {
+export class Percent extends Number {
     value: number;
 
     constructor(value: number) {
@@ -14,15 +14,16 @@ export class Percent extends number {
         this.check();
     }
 
-    add(value: number): void {
-        this.value += value;
+    // add changes the state of the percent type
+    add(value: Percent | number): void {
+        // add the values
+        if (value instanceof Percent) {
+            this.value += value.value;
 
-        // check
-        this.check();
-    }
-
-    addPercent(percent: Percent): void {
-        this.value += percent.value;
+        }
+        else {
+            this.value += value;
+        }
 
         // check
         this.check();
@@ -31,7 +32,7 @@ export class Percent extends number {
     // check if a percent
     check() {
         if ( (this.value < 0) || (this.value > 1) ) {
-            throw InvalidPercentError('Percent must be between 0 and 1');
+            throw new InvalidPercentError('Percent must be between 0 and 1');
         }
     }
 }

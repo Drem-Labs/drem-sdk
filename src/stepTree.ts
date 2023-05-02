@@ -21,22 +21,11 @@ export class StepTree {
         this.hub = manager.sdk().DremHub;
     }
 
-    // validate the step with the drem hub
-    async validateStep(step: BaseStep): Promise<void> {
-        // check the step address with the drem hub
-        var valid = (await this.hub.isStepWhitelisted(step.base.address));
-
-        // if the step isn't in the drem hub, return that it is not valid
-        if (!valid) {
-            throw new InvalidStepError(step.base.address + " is not a whitelisted step");
-        }
-    }
-
     // add a node
     // good to check the wind percent later, as it doesn't require anything
     async insert(parentIndex: number, key: number, step: BaseStep, windPercent: number): Promise<void> {
         // validate the step
-        this.validateStep(step);
+        await this._validateStep(step);
 
         // create the node
         var newNode = new Node(parentIndex, key, step, windPercent);
@@ -60,15 +49,14 @@ export class StepTree {
 
             // need non-zero wind
             // THIS IS UP FOR DEBATE AT THE SMART CONTRACT LEVEL
-            if (windPercent == 0) { throw new NodeWindPercentZeroError('Nodes must wind'); }
+            if (windPercent === 0) { throw new NodeWindPercentZeroError('Nodes must wind'); }
 
             // sum the wind percents & see if there is any room for more (children cannot access parent nodes, so it must be done here)
             var windPercentTotal = new Percent(0);
             windPercentTotal.add(windPercent);
             for (var i = 0; i < parent.children.length; i += 1) {
-                // increment the percent total
-                windPercentTotal.addPercent(this.nodes[parent.children[i]].windPercent);
-
+                // increment the percent total --> will throw if it overflows
+                windPercentTotal.add(this.nodes[parent.children[i]].windPercent);
             }
 
             // create the node
@@ -86,7 +74,31 @@ export class StepTree {
         this.nextNodeKey += 1;
     }
 
-    // removal algorithm
+    // removal algorithm: remove the node and all its children
+    async remove(key: number): Promise<void> {
+        // get the node
+        var node = this.nodes[key];
+
+        // remove all the node's children
+        for (var i = 0; i < node.children.length; i += 1) {
+            // remove the child node by its key
+            await this.remove(this.nodes[node.children[i]].key);
+        }
+
+        // remove the node itself
+        delete this.nodes[key];
+    }
+
+    // validate the step with the drem hub
+    async _validateStep(step: BaseStep): Promise<void> {
+        // check the step address with the drem hub
+        var valid = (await this.hub.isStepWhitelisted(step.base.address));
+
+        // if the step isn't in the drem hub, return that it is not valid
+        if (!valid) {
+            throw new InvalidStepError(step.base.address + " is not a whitelisted step");
+        }
+    }
 
     // function to export all of these to steps (step info type)
 

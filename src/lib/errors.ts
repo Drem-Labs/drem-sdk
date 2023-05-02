@@ -1,5 +1,5 @@
 // percent issues
-export class NotPercentError extends Error {}
+export class InvalidPercentError extends Error {}
 export class PercentageOverflowError extends Error {}
 
 // node errors
