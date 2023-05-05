@@ -1,6 +1,7 @@
 import { NodeOutOfBoundsError } from '../lib/errors';
 import { BaseStep } from '../steps/BaseStep';
 import { Percent } from './Percent';
+import { StepInfo } from './DataTypes';
 
 // precision factor (for nodes)
 const PRECISION_FACTOR = 1_000_000;
@@ -122,8 +123,12 @@ export class Node {
     }
 
     // export to stepInfo
-    // should check the wind percents of its children --> ensures that all below this node are valid
     // need to convert the wind percent into a number with the precision factor
+    toStepInfo(): StepInfo {
+        var stepInfo = new StepInfo(this.step.address, this.parentIndex, (this.windPercent * PRECISION_FACTOR), this.step.fixedArgData);
+
+        return stepInfo;
+    }
 
     // validate child
     private _validateKey(key: number): void {

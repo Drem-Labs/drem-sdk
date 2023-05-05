@@ -10,6 +10,7 @@ export class DremManager {
     // keep chain & access information
     chainId: number;
     defaultSignerOrProvider: Signer | providers.Provider;
+    private baseSdk: any;
 
     // set the chain ids and their functions
     sdks: Record<number, GetSdkType> = {
@@ -31,6 +32,12 @@ export class DremManager {
 
     // get an sdk
     sdk() {
-        return this.sdks[this.chainId](this.defaultSignerOrProvider);
+        // set the sdk if not yet done
+        if (this.baseSdk === undefined) {
+            this.baseSdk = this.sdks[this.chainId](this.defaultSignerOrProvider);
+        }
+
+        // return the sdk
+        return this.baseSdk;
     }
 }

@@ -3,6 +3,7 @@ import { Node } from './types/Node';
 import { BaseStep } from './steps/BaseStep';
 import { DremManager } from './manager';
 import { PercentageOverflowError, InvalidStepError, RootNodeNonNullParentError, RootWindPercentNotZeroError, NodeInvalidParentError, NodeWindPercentZeroError } from './lib/errors'
+import { StepInfo } from  './types/DataTypes';
 
 // create the step tree
 export class StepTree {
@@ -110,8 +111,34 @@ export class StepTree {
     }
 
     // function to export all of these to steps (step info type)
+    // we are passing a step tree into the vault deployer, so this needs to create the intermediate data related to steps
+    toStepInfoArray(): StepInfo[] {
+        // create step info for the number of nodes in the tree
+        var stepInfoArray: StepInfo[];
+
+        // iterate over the nodes in the tree
+        const nodeLen = Object.keys(nodes).length;
+        for (var i = 0; i < nodeLen; i += 1)
+        {
+            // contruct step info for each node
+            var stepInfo = nodes[i].toStepInfo();
+            stepInfoArray.push(stepInfo);
+
+            // validate the children of the node
+            this._validateChildren(nodes[i]);
+        }
+
+        // return the step info
+        return stepInfoArray;
+    }
 
     // will we need variable args? not sure, see unwind
+
+    // validate the children --> check if the wind percents are correct
+    private _validateChildren(node: Node): void {
+        // iterate over the children of the node
+            // see if the children's wind percent adds to 100% (precision factor)
+    }
 }
 
 /* NOTES

@@ -12,4 +12,8 @@ export class TransferStep extends BaseStep {
     }
 
     // no fixed args, so no need to set them
+
+    // setter for variable arg data
+
+    // getter for variable arg data
 }
