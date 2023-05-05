@@ -1,9 +1,8 @@
-import { providers, Signer, Wallet } from 'ethers';
 import * as dotenv from 'dotenv';
 import { DremManager } from '../../src/manager';
 
 // import hardhat
-const hre = require('hardhat');
+const { ethers } = require('hardhat');
 
 // load the dotenv
 dotenv.config();
@@ -12,7 +11,8 @@ dotenv.config();
 const chainId = parseInt(process.env.CHAIN_ID);
 
 // create some random user to work with everything
-const user = Wallet.createRandom();
+export const user = ethers.Wallet.createRandom();
+export const signer = user.connect(ethers.provider);
 
 // create a manager & sdk to work with everything
-export const manager = new DremManager(chainId, user);
+export const manager = new DremManager(chainId, signer);

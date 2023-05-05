@@ -26,7 +26,7 @@ export class StepTree {
     // in the step, can add
     async insert(parentIndex: number, key: number, step: BaseStep, windPercent: number): Promise<void> {
         // validate the step
-        //await this._validateStep(step);
+        await this._validateStep(step);
 
         // create the node
         var newNode = new Node(parentIndex, key, step, windPercent);
@@ -100,13 +100,13 @@ export class StepTree {
 
     // validate the step with the drem hub
     async _validateStep(step: BaseStep): Promise<void> {
-        /*// check the step address with the drem hub
+        // check the step address with the drem hub
         var valid = (await this.hub.isStepWhitelisted(step.base.address));
 
         // if the step isn't in the drem hub, return that it is not valid
         if (!valid) {
             throw new InvalidStepError(step.base.address + " is not a whitelisted step");
-        }*/
+        }
     }
 
     // function to export all of these to steps (step info type)
