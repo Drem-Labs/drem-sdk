@@ -15,7 +15,8 @@ export default defineConfig({
       VaultDeployer: "0x33334081Bb86EDDDa17ac9c90E347Dd0ec2EDed9",
       Vault: "0xfbD21fC5300fEa410E6786eb0C5A663009230097",
       steps: {
-        TransferStep: "0x42E77022147BE8e35A4a64b03091C26C77ADD346"
+        TransferStep: "0x42E77022147BE8e35A4a64b03091C26C77ADD346",
+        UniswapV3SwapStep: "0x6a70E935Ae5Cec477413a6B8bc1b508577c059F9"
       }
     },
   },

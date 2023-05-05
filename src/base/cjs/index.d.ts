@@ -12,5 +12,6 @@ export declare function getPolygonMumbaiSdk(defaultSignerOrProvider: Signer | pr
     Vault: types.polygonMumbai.Vault;
     steps: {
         TransferStep: types.polygonMumbai.steps.TransferStep;
+        UniswapV3SwapStep: types.polygonMumbai.steps.UniswapV3SwapStep;
     };
 };

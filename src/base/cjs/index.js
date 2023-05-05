@@ -13,6 +13,7 @@ const AssetRegistry_json_1 = __importDefault(require("../../../abis/polygonMumba
 const VaultDeployer_json_1 = __importDefault(require("../../../abis/polygonMumbai/VaultDeployer.json"));
 const Vault_json_1 = __importDefault(require("../../../abis/polygonMumbai/Vault.json"));
 const TransferStep_json_1 = __importDefault(require("../../../abis/polygonMumbai/steps/TransferStep.json"));
+const UniswapV3SwapStep_json_1 = __importDefault(require("../../../abis/polygonMumbai/steps/UniswapV3SwapStep.json"));
 function getContract(address, abi, defaultSignerOrProvider) {
     return new ethers_1.Contract(address, abi, defaultSignerOrProvider);
 }
@@ -28,6 +29,7 @@ function getPolygonMumbaiSdk(defaultSignerOrProvider) {
         "Vault": getContract('0xfbD21fC5300fEa410E6786eb0C5A663009230097', Vault_json_1.default, defaultSignerOrProvider),
         "steps": {
             "TransferStep": getContract('0x42E77022147BE8e35A4a64b03091C26C77ADD346', TransferStep_json_1.default, defaultSignerOrProvider),
+            "UniswapV3SwapStep": getContract('0x6a70E935Ae5Cec477413a6B8bc1b508577c059F9', UniswapV3SwapStep_json_1.default, defaultSignerOrProvider),
         },
     };
 }
