@@ -8,11 +8,11 @@ export class BaseStep {
     // getters for the fixed and variable arg data --> return null bytes
     // lots of conversion going on here --> going to make them promises
     async getFixedArgData(): Promise<string> {
-        return "0x0";
+        return "0x00";
     }
 
     async getVariableArgData(): Promise<string> {
-        return "0x0";
+        return "0x00";
     }
 
     // all setters will be different, really no reason to make them here

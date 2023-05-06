@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export * as steps from "./steps";
+export * as testing from "./testing";
 export { AssetRegistry__factory } from "./AssetRegistry__factory";
 export { DremHub__factory } from "./DremHub__factory";
 export { FeeController__factory } from "./FeeController__factory";

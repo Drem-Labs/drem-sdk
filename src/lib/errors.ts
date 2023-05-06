@@ -13,6 +13,7 @@ export class NodeWindPercentZeroError extends Error {}
 
 // step errors
 export class InvalidStepError extends Error {}
+export class VariableArgsNotSetError extends Error {}
 
 // complex errors
 export class InvalidChainError extends Error {}

@@ -8,7 +8,7 @@ import { StepInfo } from  './types/DataTypes/StepInfo';
 // create the step tree
 export class StepTree {
     root: number;
-    nodes: {[key: number]: Node} = {};
+    nodes: {[key: number]: Node} = {};  // nodes and data should be accessible to the frontend
 
     // should store the next node key, so you don't have to compute
     nextNodeKey: number;
@@ -146,7 +146,9 @@ export class StepTree {
     // get the nodes in order
     private _getOrderedNodes(): Node[] {
         // get the keys and values in order of their sorting
-        const sortedKeys = Object.keys(this.nodes).map(Number).sort();
+        const sortedKeys = Object.keys(this.nodes)
+        sortedKeys.sort();
+
         const sortedValues = sortedKeys.map((key) => this.nodes[key]);
 
         return sortedValues;
@@ -163,4 +165,5 @@ export class StepTree {
 
 /* To Do:
 - validate the children!
+- need to write a ton more tests for this (workable, but we want to be more sure, as users are going to do a ton to these strategies, and we want to ensure a seamless deployment experience)
 */

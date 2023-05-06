@@ -14,6 +14,7 @@ const VaultDeployer_json_1 = __importDefault(require("../../../abis/polygonMumba
 const Vault_json_1 = __importDefault(require("../../../abis/polygonMumbai/Vault.json"));
 const TransferStep_json_1 = __importDefault(require("../../../abis/polygonMumbai/steps/TransferStep.json"));
 const UniswapV3SwapStep_json_1 = __importDefault(require("../../../abis/polygonMumbai/steps/UniswapV3SwapStep.json"));
+const MockERC20_json_1 = __importDefault(require("../../../abis/polygonMumbai/testing/MockERC20.json"));
 function getContract(address, abi, defaultSignerOrProvider) {
     return new ethers_1.Contract(address, abi, defaultSignerOrProvider);
 }
@@ -30,6 +31,9 @@ function getPolygonMumbaiSdk(defaultSignerOrProvider) {
         "steps": {
             "TransferStep": getContract('0x42E77022147BE8e35A4a64b03091C26C77ADD346', TransferStep_json_1.default, defaultSignerOrProvider),
             "UniswapV3SwapStep": getContract('0x6a70E935Ae5Cec477413a6B8bc1b508577c059F9', UniswapV3SwapStep_json_1.default, defaultSignerOrProvider),
+        },
+        "testing": {
+            "MockERC20": getContract('0x3e02538fDF82daD570A5dB5deDC4CC165061798E', MockERC20_json_1.default, defaultSignerOrProvider),
         },
     };
 }

@@ -17,6 +17,9 @@ export default defineConfig({
       steps: {
         TransferStep: "0x42E77022147BE8e35A4a64b03091C26C77ADD346",
         UniswapV3SwapStep: "0x6a70E935Ae5Cec477413a6B8bc1b508577c059F9"
+      },
+      testing: {
+        MockERC20: "0x3e02538fDF82daD570A5dB5deDC4CC165061798E"  // should be treated as WETH, as it is eth/usd paired
       }
     },
   },

@@ -17,6 +17,8 @@ export type { UniswapV3SwapStep } from "./polygonMumbai/steps/UniswapV3SwapStep"
 export { UniswapV3SwapStep__factory } from "./factories/polygonMumbai/steps/UniswapV3SwapStep__factory";
 export type { StepTreeLib } from "./polygonMumbai/StepTreeLib";
 export { StepTreeLib__factory } from "./factories/polygonMumbai/StepTreeLib__factory";
+export type { MockERC20 } from "./polygonMumbai/testing/MockERC20";
+export { MockERC20__factory } from "./factories/polygonMumbai/testing/MockERC20__factory";
 export type { Vault } from "./polygonMumbai/Vault";
 export { Vault__factory } from "./factories/polygonMumbai/Vault__factory";
 export type { VaultDeployer } from "./polygonMumbai/VaultDeployer";

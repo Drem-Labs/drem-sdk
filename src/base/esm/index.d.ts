@@ -14,4 +14,7 @@ export declare function getPolygonMumbaiSdk(defaultSignerOrProvider: Signer | pr
         TransferStep: types.polygonMumbai.steps.TransferStep;
         UniswapV3SwapStep: types.polygonMumbai.steps.UniswapV3SwapStep;
     };
+    testing: {
+        MockERC20: types.polygonMumbai.testing.MockERC20;
+    };
 };

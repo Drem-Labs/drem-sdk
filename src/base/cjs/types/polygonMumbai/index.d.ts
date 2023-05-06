@@ -1,5 +1,7 @@
 import type * as steps from "./steps";
 export type { steps };
+import type * as testing from "./testing";
+export type { testing };
 export type { AssetRegistry } from "./AssetRegistry";
 export type { DremHub } from "./DremHub";
 export type { FeeController } from "./FeeController";

@@ -8,6 +8,7 @@ import polygonMumbai_VaultDeployer_abi from '../../../abis/polygonMumbai/VaultDe
 import polygonMumbai_Vault_abi from '../../../abis/polygonMumbai/Vault.json';
 import polygonMumbai_steps_TransferStep_abi from '../../../abis/polygonMumbai/steps/TransferStep.json';
 import polygonMumbai_steps_UniswapV3SwapStep_abi from '../../../abis/polygonMumbai/steps/UniswapV3SwapStep.json';
+import polygonMumbai_testing_MockERC20_abi from '../../../abis/polygonMumbai/testing/MockERC20.json';
 export function getContract(address, abi, defaultSignerOrProvider) {
     return new Contract(address, abi, defaultSignerOrProvider);
 }
@@ -23,6 +24,9 @@ export function getPolygonMumbaiSdk(defaultSignerOrProvider) {
         "steps": {
             "TransferStep": getContract('0x42E77022147BE8e35A4a64b03091C26C77ADD346', polygonMumbai_steps_TransferStep_abi, defaultSignerOrProvider),
             "UniswapV3SwapStep": getContract('0x6a70E935Ae5Cec477413a6B8bc1b508577c059F9', polygonMumbai_steps_UniswapV3SwapStep_abi, defaultSignerOrProvider),
+        },
+        "testing": {
+            "MockERC20": getContract('0x3e02538fDF82daD570A5dB5deDC4CC165061798E', polygonMumbai_testing_MockERC20_abi, defaultSignerOrProvider),
         },
     };
 }

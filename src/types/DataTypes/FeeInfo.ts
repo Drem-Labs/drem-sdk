@@ -15,11 +15,13 @@ export class FeeInfo {
     collector: string;
 
     // set the fees
-    constructor(entranceFee: Percent, exitFee: Percent, performanceFee: Percent, managementFee: Percent, collector: string) {
-        this.entranceFee = entranceFee;
-        this.exitFee = exitFee;
-        this.performanceFee = performanceFee;
-        this.managementFee = managementFee;
+    constructor(entranceFee: number, exitFee: number, performanceFee: number, managementFee: number, collector: string) {
+        // convert all the fees to percents to ensure that they get converted correctly
+        this.entranceFee = new Percent(entranceFee);
+        this.exitFee = new Percent(exitFee);
+        this.performanceFee = new Percent(performanceFee);
+        this.managementFee = new Percent(managementFee);
+
         this.collector = collector;
     }
 
@@ -38,6 +40,8 @@ export class FeeInfo {
     private _convertFee(fee: Percent): number {
         // make a value by converting the fee to a number with the precision factor and rounding it
         const value = Math.round(fee.value * PRECISION_FACTOR);
+
+        return value;
     }
 }
 

@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VaultDeployer__factory = exports.Vault__factory = exports.StepTreeLib__factory = exports.UniswapV3SwapStep__factory = exports.TransferStep__factory = exports.PriceAggregator__factory = exports.PriceAggreagtor__factory = exports.FeeController__factory = exports.DremHub__factory = exports.AssetRegistry__factory = exports.factories = void 0;
+exports.VaultDeployer__factory = exports.Vault__factory = exports.MockERC20__factory = exports.StepTreeLib__factory = exports.UniswapV3SwapStep__factory = exports.TransferStep__factory = exports.PriceAggregator__factory = exports.PriceAggreagtor__factory = exports.FeeController__factory = exports.DremHub__factory = exports.AssetRegistry__factory = exports.factories = void 0;
 exports.factories = __importStar(require("./factories"));
 var AssetRegistry__factory_1 = require("./factories/polygonMumbai/AssetRegistry__factory");
 Object.defineProperty(exports, "AssetRegistry__factory", { enumerable: true, get: function () { return AssetRegistry__factory_1.AssetRegistry__factory; } });
@@ -41,6 +41,8 @@ var UniswapV3SwapStep__factory_1 = require("./factories/polygonMumbai/steps/Unis
 Object.defineProperty(exports, "UniswapV3SwapStep__factory", { enumerable: true, get: function () { return UniswapV3SwapStep__factory_1.UniswapV3SwapStep__factory; } });
 var StepTreeLib__factory_1 = require("./factories/polygonMumbai/StepTreeLib__factory");
 Object.defineProperty(exports, "StepTreeLib__factory", { enumerable: true, get: function () { return StepTreeLib__factory_1.StepTreeLib__factory; } });
+var MockERC20__factory_1 = require("./factories/polygonMumbai/testing/MockERC20__factory");
+Object.defineProperty(exports, "MockERC20__factory", { enumerable: true, get: function () { return MockERC20__factory_1.MockERC20__factory; } });
 var Vault__factory_1 = require("./factories/polygonMumbai/Vault__factory");
 Object.defineProperty(exports, "Vault__factory", { enumerable: true, get: function () { return Vault__factory_1.Vault__factory; } });
 var VaultDeployer__factory_1 = require("./factories/polygonMumbai/VaultDeployer__factory");

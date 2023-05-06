@@ -28,19 +28,20 @@ export class DeploymentInfo {
             this.name,
             this.symbol,
             this.denominationAsset,
-            this._stepInfoArrayStruct(),
+            this._stepInfoStructArray(),
             this.feeInfo.toStruct()
             ];
     }
 
     // internal function to construct the step info struct
-    private _stepInfoArrayStruct(): StepInfoStruct[] {
+    private _stepInfoStructArray(): StepInfoStruct[] {
         // create an array to write to
-        var stepInfoStructArray: StepInfoStruct[];
+        var stepInfoStructArray: StepInfoStruct[] = [];
 
         // push the array with the step info structs
-        for (var i = 0; this.stepInfoArray.length; i += 1) {
-            stepInfoStructArray.push(this.stepInfoArray[i].toStruct());
+        for (var i = 0; i < this.stepInfoArray.length; i += 1) {
+            var stepInfoStruct = this.stepInfoArray[i].toStruct();
+            stepInfoStructArray.push(stepInfoStruct);
         }
 
         // return teh step info struct array

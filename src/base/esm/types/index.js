@@ -7,5 +7,6 @@ export { PriceAggregator__factory } from "./factories/polygonMumbai/PriceAggrega
 export { TransferStep__factory } from "./factories/polygonMumbai/steps/TransferStep__factory";
 export { UniswapV3SwapStep__factory } from "./factories/polygonMumbai/steps/UniswapV3SwapStep__factory";
 export { StepTreeLib__factory } from "./factories/polygonMumbai/StepTreeLib__factory";
+export { MockERC20__factory } from "./factories/polygonMumbai/testing/MockERC20__factory";
 export { Vault__factory } from "./factories/polygonMumbai/Vault__factory";
 export { VaultDeployer__factory } from "./factories/polygonMumbai/VaultDeployer__factory";
