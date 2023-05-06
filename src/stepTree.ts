@@ -112,39 +112,27 @@ export class StepTree {
 
     // function to export all of these to steps (step info type)
     // we are passing a step tree into the vault deployer, so this needs to create the intermediate data related to steps
-    toStepInfoArray(): StepInfo[] {
+    async toStepInfoArray(): Promise<StepInfo[]> {
         // create step info for the number of nodes in the tree
-        var stepInfoArray: StepInfo[];
+        const stepInfoArray = await Promise.all(this._getOrderedNodes().map(async (node) => {
+            // get the result
+            var stepInfo = await node.toStepInfo();
 
-        // iterate over the nodes in the tree
-        const nodeLen = Object.keys(this.nodes).length;
-        for (var i = 0; i < nodeLen; i += 1) {
-            // contruct step info for each node
-            var stepInfo = this.nodes[i].toStepInfo();
-            stepInfoArray.push(stepInfo);
-
-            // validate the children of the node
-            this._validateChildren(this.nodes[i]);
-        }
+            return stepInfo;
+        }));
 
         // return the step info
         return stepInfoArray;
     }
 
     // will we need variable args, which are represented as byte strings (can get them from each of the steps)
-    toVariableArgs(): string[] {
+    async toVariableArgs(): Promise<string[]> {
         // create a variable arg array
-        var variableArgs: string[];
+        var variableArgs = await Promise.all(this._getOrderedNodes().map(async (node) => {
+            var variableArgData = await node.getStep().getVariableArgData();
 
-        // iterate over the nodes to get the variable args out
-        const nodeLen = Object.keys(this.nodes).length;
-        for (var i = 0; i < nodeLen; i += 1) {
-            // get the variable arg data
-            var variableArgData = await this.nodes[i].getStep().getVariableArgData();
-
-            // push the variable args from whatever node --> step is storing
-            variableArgs.push(variableArgData);
-        }
+            return variableArgData;
+        }));
 
         return variableArgs;
     }
@@ -153,6 +141,15 @@ export class StepTree {
     private _validateChildren(node: Node): void {
         // iterate over the children of the node
             // see if the children's wind percent adds to 100% (precision factor)
+    }
+
+    // get the nodes in order
+    private _getOrderedNodes(): Node[] {
+        // get the keys and values in order of their sorting
+        const sortedKeys = Object.keys(this.nodes).map(Number).sort();
+        const sortedValues = sortedKeys.map((key) => this.nodes[key]);
+
+        return sortedValues;
     }
 }
 
