@@ -1,7 +1,7 @@
 import { NodeOutOfBoundsError } from '../lib/errors';
 import { BaseStep } from '../steps/BaseStep';
 import { Percent } from './Percent';
-import { StepInfo } from './DataTypes';
+import { StepInfo } from './DataTypes/StepInfo';
 
 // precision factor (for nodes)
 const PRECISION_FACTOR = 1_000_000;
@@ -125,7 +125,7 @@ export class Node {
     // export to stepInfo
     // need to convert the wind percent into a number with the precision factor
     toStepInfo(): StepInfo {
-        var stepInfo = new StepInfo(this.step.address, this.parentIndex, (this.windPercent * PRECISION_FACTOR), this.step.fixedArgData);
+        var stepInfo = new StepInfo(this.step.base.address, this.parentIndex, (this.windPercent.value * PRECISION_FACTOR), this.step.fixedArgData);
 
         return stepInfo;
     }

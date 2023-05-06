@@ -3,7 +3,7 @@ import { Node } from './types/Node';
 import { BaseStep } from './steps/BaseStep';
 import { DremManager } from './manager';
 import { PercentageOverflowError, InvalidStepError, RootNodeNonNullParentError, RootWindPercentNotZeroError, NodeInvalidParentError, NodeWindPercentZeroError } from './lib/errors'
-import { StepInfo } from  './types/DataTypes';
+import { StepInfo } from  './types/DataTypes/StepInfo';
 
 // create the step tree
 export class StepTree {
@@ -117,22 +117,34 @@ export class StepTree {
         var stepInfoArray: StepInfo[];
 
         // iterate over the nodes in the tree
-        const nodeLen = Object.keys(nodes).length;
-        for (var i = 0; i < nodeLen; i += 1)
-        {
+        const nodeLen = Object.keys(this.nodes).length;
+        for (var i = 0; i < nodeLen; i += 1) {
             // contruct step info for each node
-            var stepInfo = nodes[i].toStepInfo();
+            var stepInfo = this.nodes[i].toStepInfo();
             stepInfoArray.push(stepInfo);
 
             // validate the children of the node
-            this._validateChildren(nodes[i]);
+            this._validateChildren(this.nodes[i]);
         }
 
         // return the step info
         return stepInfoArray;
     }
 
-    // will we need variable args? not sure, see unwind
+    // will we need variable args, which are represented as byte strings (can get them from each of the steps)
+    toVariableArgs(): string[] {
+        // create a variable arg array
+        var variableArgs: string[];
+
+        // iterate over the nodes to get the variable args out
+        const nodeLen = Object.keys(this.nodes).length;
+        for (var i = 0; i < nodeLen; i += 1) {
+            // push the variable args from whatever node --> step is storing
+            variableArgs.push(this.nodes[i].getStep().variableArgData);
+        }
+
+        return variableArgs;
+    }
 
     // validate the children --> check if the wind percents are correct
     private _validateChildren(node: Node): void {
@@ -147,4 +159,8 @@ export class StepTree {
     - cannot insert keys between each other, must remove node and rebuild children if you want to switch the order
         - can add this functionality later, just more complex than necessary for MVP
 - removals recurse, so be careful!
+*/
+
+/* To Do:
+- validate the children!
 */

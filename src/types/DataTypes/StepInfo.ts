@@ -1,3 +1,6 @@
+// step info struct return type
+export type StepInfoStruct = [string, number, number, string];
+
 // this is an incredibly simple datatype, as it should only be used intermediately
     // it does not check to be used with correct values, so these checks need to be done elsewhere
 export class StepInfo {
@@ -16,8 +19,9 @@ export class StepInfo {
     }
 
     // export to struct
-    toStruct(): any[] {
+    toStruct(): StepInfoStruct {
         // format the struct as it should be
         return [this.interactionAddress, this.parentIndex, this.windPercent, this.fixedArgData];
     }
 }
+
