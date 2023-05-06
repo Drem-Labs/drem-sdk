@@ -3,9 +3,17 @@ export class BaseStep {
     base: any;
 
     // should be able to store fixed arg data, as this should not be stored in the node
-    // best to store this arg data here, as it should depend on the vault --> can give the frontend more information about what the step will do
-    fixedArgData: string;
+    // all arg data should be stored in a readable form and only be converted when forming the vault
 
-    // variable arg data --> steps can be used for wind and unwind
-    variableArgData: string;
+    // getters for the fixed and variable arg data --> return null bytes
+    // lots of conversion going on here --> going to make them promises
+    async getFixedArgData(): Promise<string> {
+        return "0x0";
+    }
+
+    async getVariableArgData(): Promise<string> {
+        return "0x0";
+    }
+
+    // all setters will be different, really no reason to make them here
 }

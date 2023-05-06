@@ -125,7 +125,7 @@ export class Node {
     // export to stepInfo
     // need to convert the wind percent into a number with the precision factor
     toStepInfo(): StepInfo {
-        var stepInfo = new StepInfo(this.step.base.address, this.parentIndex, (this.windPercent.value * PRECISION_FACTOR), this.step.fixedArgData);
+        var stepInfo = new StepInfo(this.step.base.address, this.parentIndex, (this.windPercent.value * PRECISION_FACTOR), this.step.getFixedArgData());
 
         return stepInfo;
     }

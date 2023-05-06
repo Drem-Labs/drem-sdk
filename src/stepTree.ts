@@ -139,8 +139,11 @@ export class StepTree {
         // iterate over the nodes to get the variable args out
         const nodeLen = Object.keys(this.nodes).length;
         for (var i = 0; i < nodeLen; i += 1) {
+            // get the variable arg data
+            var variableArgData = await this.nodes[i].getStep().getVariableArgData();
+
             // push the variable args from whatever node --> step is storing
-            variableArgs.push(this.nodes[i].getStep().variableArgData);
+            variableArgs.push(variableArgData);
         }
 
         return variableArgs;
