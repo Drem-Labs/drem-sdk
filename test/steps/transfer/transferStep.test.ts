@@ -1,5 +1,5 @@
 import { FeeInfo } from '../../../src/types/DataTypes/FeeInfo';
-import { user, manager } from '../../reference/setup';
+import { user, manager, giveMatic } from '../../reference/setup';
 import { VaultDeployer } from '../../../src/vaultDeployer';
 import { StepTree } from '../../../src/stepTree';
 import { TransferStep } from '../../../src/steps/transfer/transferStep';
@@ -23,7 +23,7 @@ describe('TransferStep', () => {
 
     // deployment tests both init and winding capabilities
     describe('deployment', () => {
-        it('should be deployable', async () => {
+        it.concurrent('should be deployable', async () => {
             // start a tree
             var stepTree = new StepTree(manager);
 
@@ -33,8 +33,18 @@ describe('TransferStep', () => {
             // insert the transfer step into the tree
             await stepTree.insert(0, 1, transferStep, 0);
 
+            // give matic to the user
+            await giveMatic(user.address, 1);
+
+            // user needs some funds
+            var preciseAmount = (1 * (10 ** (await mockERC20.decimals()))).toString();
+            await mockERC20.mint(user.address, preciseAmount);
+
             // set the funds into the transfer step (1 eth)
             await transferStep.setFundsIn(1, mockERC20.address);
+
+            // check the alloance with the transfer step
+            await transferStep.checkAllowance(vaultDeployer.base.address);
 
             // create some null fee info
             var feeInfo = new FeeInfo(0, 0, 0, 0, user.address);
@@ -43,6 +53,6 @@ describe('TransferStep', () => {
             await expect(
                 vaultDeployer.deployVault(user.address, "Sample Vault", "SV", mockERC20.address, feeInfo, stepTree)
                 ).resolves.toBeDefined();
-        });
+        }, 10000);
     });
 });

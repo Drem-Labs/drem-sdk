@@ -15,6 +15,10 @@ export class NodeWindPercentZeroError extends Error {}
 export class InvalidStepError extends Error {}
 export class VariableArgsNotSetError extends Error {}
 
+// transfer issues
+export class InsufficientAllowance extends Error {}
+export class InsufficientBalance extends Error {}
+
 // complex errors
 export class InvalidChainError extends Error {}
 
