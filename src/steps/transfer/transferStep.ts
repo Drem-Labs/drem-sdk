@@ -27,6 +27,15 @@ export class TransferStep extends BaseStep {
 
     // no fixed args, so no need to set them
 
+    // load from a vault (no use for the stepkey)
+    async load(vault: any, stepKey: number): void {
+        // get the address
+        var denominationAssetAddress = await vault.getDenominationAsset();
+
+        // set the denomination asset
+        this.denominationAsset = new Contract(denominationAsset, ERC20_ABI, this.manager.defaultSignerOrProvider);
+    }
+
     // setter for variable arg data
     // allow any number to be input, as this will be converted when getting variable arg data
     async setFundsIn(amount: number, denominationAsset: string): Promise<void> {
@@ -34,7 +43,7 @@ export class TransferStep extends BaseStep {
         this.amount = amount;
 
         // check the funds in, and set them to 0 if they are incorrect
-        this.checkFunds().catch((error) => {
+        await this.checkFunds().catch((error) => {
             this.amount = 0;
 
             // throw the error

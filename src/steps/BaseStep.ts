@@ -1,3 +1,5 @@
+import { InvalidStepError } from '../lib/errors';
+
 export class BaseStep {
     // address is accessible from base, no need to rewrite it
     base: any;
@@ -15,5 +17,15 @@ export class BaseStep {
         return "0x00";
     }
 
-    // all setters will be different, really no reason to make them here
+    async load(vault: any, stepKey: number): void {
+        throw new InvalidStepError('This step cannot be loaded. Please contact SDK development team.');
+    }
+
+    // autoset (overridden in steps)
+    async autoset(amountIn: number): void {
+
+    }
+
+    // all other setters will be different, really no reason to make them here
+        // no reason to set the wind percent, as this is handled at the node level, not the step level
 }
