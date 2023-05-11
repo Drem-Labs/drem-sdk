@@ -165,5 +165,6 @@ export class StepTree {
 
 /* To Do:
 - validate the children!
+    - ensure that we are combining correct amount in & outs
 - need to write a ton more tests for this (workable, but we want to be more sure, as users are going to do a ton to these strategies, and we want to ensure a seamless deployment experience)
 */
