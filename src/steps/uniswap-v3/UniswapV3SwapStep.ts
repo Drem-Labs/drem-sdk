@@ -131,7 +131,9 @@ export class UniswapV3SwapStep extends BaseStep {
     // getter for fixed arg data --> returns an entire list of addresses that are the path to take to the swap
 
     // getter for variable arg data (min funds out)
-
+    getAmountOutMinimum(): number {
+        return this.amountOutMinimum;
+    }
 
     // getter to construct uniswap tokens
     private async _getUniswapToken(token: Contract): Token {

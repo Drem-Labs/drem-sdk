@@ -17,6 +17,7 @@ export class BaseStep {
         return "0x00";
     }
 
+    // this will be overloaded with real arguments using the vault and not type any
     async load(vault: any, stepKey: number): void {
         throw new InvalidStepError('This step cannot be loaded. Please contact SDK development team.');
     }
