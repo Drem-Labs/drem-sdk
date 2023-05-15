@@ -1,34 +1,26 @@
-import { Wallet } from 'ethers';
-import * as dotenv from 'dotenv';
+import { manager } from './reference/setup';
 import { DremManager } from '../src/manager';
+import { VaultDeployer } from '../src/vaultDeployer';
 import { Vault } from '../src/vault';
 import { InvalidChainError } from '../src/lib/errors';
 
-// import hardhat
-const hre = require('hardhat');
-
 describe('Vault', () => {
-  // load the dotenv
-  dotenv.config();
-
-  // set the chain id
-  const chainId = parseInt(process.env.CHAIN_ID);
-
-  // create some random user to work with everything
-  const user = Wallet.createRandom();
-
-  // create a manager to work with everything
-  const manager = new DremManager(chainId, user);
-
-  // set the vault address
-    // note: temporarily hardcoded, but we will use the deployer once it has been built
-  const vaultAddress = "0xfbD21fC5300fEa410E6786eb0C5A663009230097";
+  // set the vault deployer
+  var vaultDeployer = new VaultDeployer(manager);
 
   describe('constructor', () => {
     it('should create a vault', () => {
       expect(() => {
-        var vault = new Vault(manager, vaultAddress);
+        var vault = vaultDeployer.;
       }).not.toThrow();
+    });
+  });
+
+  describe('base', () => {
+    it('should get a root node', () => {
+      expect(() => {
+        var vault = new Vault(manager, vaultAddress);
+      });
     });
   });
 

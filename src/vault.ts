@@ -29,7 +29,7 @@ export class Vault {
 
         // start at the root node & iterate through the children
             // not trivial, as you need to get the root out of the stored step tree --> get a mapping from a struct
-        _addNode()
+        _addNode();
 
         // load all the steps (this is getting the fixed args --> should not need each other --> do them all at once)
     }

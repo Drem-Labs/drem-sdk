@@ -3,7 +3,6 @@ import { user, manager, giveMatic } from '../../reference/setup';
 import { VaultDeployer } from '../../../src/vaultDeployer';
 import { StepTree } from '../../../src/stepTree';
 import { TransferStep } from '../../../src/steps/transfer/transferStep';
-
 import { DeploymentInfo } from '../../../src/types/DataTypes/DeploymentInfo';
 
 describe('TransferStep', () => {
