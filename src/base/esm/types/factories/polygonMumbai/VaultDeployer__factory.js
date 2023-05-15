@@ -30,21 +30,6 @@ const _abi = [
         type: "constructor",
     },
     {
-        inputs: [],
-        name: "NotHubOwner",
-        type: "error",
-    },
-    {
-        inputs: [],
-        name: "ProtocolPausedOrFrozen",
-        type: "error",
-    },
-    {
-        inputs: [],
-        name: "ZeroAddress",
-        type: "error",
-    },
-    {
         anonymous: false,
         inputs: [
             {

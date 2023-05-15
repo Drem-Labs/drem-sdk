@@ -30,7 +30,7 @@ async function deployMockTransferVault(user: Wallet, manager: DremManager): stri
     var preciseAmount = (1 * (10 ** (await mockERC20.decimals()))).toString();
     await mockERC20.mint(user.address, preciseAmount);
 
-    // set the funds into the transfer step (1 eth)
+    // set the funds into the transfer step (1 matic)
     await transferStep.setFundsIn(1, mockERC20.address);
 
     // check the alloance with the transfer step
@@ -44,3 +44,7 @@ async function deployMockTransferVault(user: Wallet, manager: DremManager): stri
 
     return address;
 }
+
+/* NOTES
+- the mock ERC20 may be eth/usd, but may receive matic
+*/

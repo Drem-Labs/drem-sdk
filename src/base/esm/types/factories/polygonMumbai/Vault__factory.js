@@ -22,7 +22,7 @@ const _abi = [
             },
             {
                 internalType: "address",
-                name: "_feeRegistry",
+                name: "_feeController",
                 type: "address",
             },
         ],
@@ -497,6 +497,52 @@ const _abi = [
                 internalType: "address",
                 name: "",
                 type: "address",
+            },
+        ],
+        stateMutability: "view",
+        type: "function",
+    },
+    {
+        inputs: [
+            {
+                internalType: "uint256",
+                name: "_stepNodeKey",
+                type: "uint256",
+            },
+        ],
+        name: "getNode",
+        outputs: [
+            {
+                components: [
+                    {
+                        internalType: "uint8",
+                        name: "parent",
+                        type: "uint8",
+                    },
+                    {
+                        internalType: "uint8[9]",
+                        name: "children",
+                        type: "uint8[9]",
+                    },
+                    {
+                        internalType: "uint8",
+                        name: "key",
+                        type: "uint8",
+                    },
+                    {
+                        internalType: "address",
+                        name: "stepAddress",
+                        type: "address",
+                    },
+                    {
+                        internalType: "uint256",
+                        name: "windPercent",
+                        type: "uint256",
+                    },
+                ],
+                internalType: "struct StepTreeLib.Node",
+                name: "",
+                type: "tuple",
             },
         ],
         stateMutability: "view",

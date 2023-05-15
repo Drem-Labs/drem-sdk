@@ -23,18 +23,6 @@ export declare class VaultDeployer__factory {
         readonly stateMutability: "nonpayable";
         readonly type: "constructor";
     }, {
-        readonly inputs: readonly [];
-        readonly name: "NotHubOwner";
-        readonly type: "error";
-    }, {
-        readonly inputs: readonly [];
-        readonly name: "ProtocolPausedOrFrozen";
-        readonly type: "error";
-    }, {
-        readonly inputs: readonly [];
-        readonly name: "ZeroAddress";
-        readonly type: "error";
-    }, {
         readonly anonymous: false;
         readonly inputs: readonly [{
             readonly indexed: false;

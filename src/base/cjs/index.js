@@ -26,8 +26,8 @@ function getPolygonMumbaiSdk(defaultSignerOrProvider) {
         "FeeController": getContract('0x9f814Ff3fE04099cDD04Ad93C0307fE09F8194f9', FeeController_json_1.default, defaultSignerOrProvider),
         "PriceAggreagtor": getContract('0xd804c3DF1AB160fc7cb406F9902ea3be43107e42', PriceAggreagtor_json_1.default, defaultSignerOrProvider),
         "AssetRegistry": getContract('0x6dC1CD636fd04C437F48d61d92C4CC2AccBAC1cB', AssetRegistry_json_1.default, defaultSignerOrProvider),
-        "VaultDeployer": getContract('0x33334081Bb86EDDDa17ac9c90E347Dd0ec2EDed9', VaultDeployer_json_1.default, defaultSignerOrProvider),
-        "Vault": getContract('0xfbD21fC5300fEa410E6786eb0C5A663009230097', Vault_json_1.default, defaultSignerOrProvider),
+        "VaultDeployer": getContract('0x0Cbb6850d43a9a40b2265851E63488cE7D29bbf8', VaultDeployer_json_1.default, defaultSignerOrProvider),
+        "Vault": getContract('0xb625c3af5CE0a4c9a2ee6188d6e29146906B2e0D', Vault_json_1.default, defaultSignerOrProvider),
         "steps": {
             "TransferStep": getContract('0x42E77022147BE8e35A4a64b03091C26C77ADD346', TransferStep_json_1.default, defaultSignerOrProvider),
             "UniswapV3SwapStep": getContract('0x6a70E935Ae5Cec477413a6B8bc1b508577c059F9', UniswapV3SwapStep_json_1.default, defaultSignerOrProvider),
