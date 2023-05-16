@@ -24,16 +24,16 @@ export class TransferStep extends BaseStep {
     // load from a vault (no use for the stepkey)
     async load(vault: Vault, stepKey: number): Promise<void> {
         // get the address
-        var denominationAssetAddress = await vault.getDenominationAsset();
+        var denominationAssetAddress = await vault.base.getDenominationAsset();
 
         // set the denomination asset
-        this.denominationAsset = new Contract(denominationAsset, ERC20_ABI, this.manager.defaultSignerOrProvider);
+        this.denominationAsset = new Contract(denominationAssetAddress, ERC20_ABI, this.manager.defaultSignerOrProvider);
     }
 
     // setter for variable arg data
     // allow any number to be input, as this will be converted when getting variable arg data
-    async setFundsIn(amount: number, denominationAsset: string): Promise<void> {
-        this.denominationAsset = new Contract(denominationAsset, ERC20_ABI, this.manager.defaultSignerOrProvider);
+    async setFundsIn(amount: number, denominationAssetAddress: string): Promise<void> {
+        this.denominationAsset = new Contract(denominationAssetAddress, ERC20_ABI, this.manager.defaultSignerOrProvider);
         this.amount = amount;
 
         // check the funds in, and set them to 0 if they are incorrect

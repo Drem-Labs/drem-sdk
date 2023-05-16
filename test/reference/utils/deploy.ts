@@ -3,16 +3,17 @@ import { giveMatic } from '../setup';
 import { DremManager } from '../../../src/manager';
 import { VaultDeployer } from '../../../src/vaultDeployer';
 import { StepTree } from '../../../src/stepTree';
-import { TramsferStep } from '../../../src/steps/transfer/transferStep';
+import { TransferStep } from '../../../src/steps/transfer/transferStep';
 import { DeploymentInfo } from '../../../src/types/DataTypes/DeploymentInfo';
+import { FeeInfo } from '../../../src/types/DataTypes/FeeInfo';
 
 // function that just deploys a simple mock transfer vault
-async function deployMockTransferVault(user: Wallet, manager: DremManager): string {
+export async function deployMockTransferVault(user: Wallet, manager: DremManager): Promise<string> {
     // create a vault deployer
     var vaultDeployer = new VaultDeployer(manager);
 
     // get the mock erc20
-    var mockERC20 = manger.sdk().testing.MockERC20;
+    var mockERC20 = manager.sdk().testing.MockERC20;
 
     // start a tree
     var stepTree = new StepTree(manager);

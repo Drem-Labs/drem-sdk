@@ -30,7 +30,7 @@ describe('TransferStep', () => {
             var transferStep = new TransferStep(manager);
 
             // insert the transfer step into the tree
-            await stepTree.insert(0, 1, transferStep, 0);
+            await stepTree.insert(0, transferStep, 0);
 
             // give matic to the user
             await giveMatic(user.address, 1);
