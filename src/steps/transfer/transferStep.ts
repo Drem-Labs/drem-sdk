@@ -1,34 +1,28 @@
 import { Signer, Contract, BigNumber, utils, providers } from 'ethers';
 import { BaseStep } from '../BaseStep';
 import { DremManager } from '../../manager';
+import { Vault } from '../../vault';
 import { ERC20_ABI } from '../../abis/ERC20';
 import { VariableArgsNotSetError, InsufficientBalance, InsufficientAllowance } from '../../lib/errors';
 
 // really, the transfer step does not do much, so this is just filler to maintain project structure
 export class TransferStep extends BaseStep {
-    // going to want to keep the manager to use the signer later
-        // want this to be updated in one place if it changes
-    private manager: DremManager;
-
     // amount, denomination asset
     private amount: number;
     private denominationAsset: Contract;
 
     // constructor should take a manager and get the step
     constructor(manager: DremManager) {
-        super();
+        super(manager);
 
         // get the transfer step
         this.base = manager.sdk().steps.TransferStep;
-
-        // keep the manger
-        this.manager = manager;
     }
 
     // no fixed args, so no need to set them
 
     // load from a vault (no use for the stepkey)
-    async load(vault: any, stepKey: number): void {
+    async load(vault: Vault, stepKey: number): Promise<void> {
         // get the address
         var denominationAssetAddress = await vault.getDenominationAsset();
 

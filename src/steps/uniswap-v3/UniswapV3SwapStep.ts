@@ -5,6 +5,7 @@ import { Percent as UniswapPercent } from '@uniswap/sdk-core';
 import { Percent } from '../../types/Percent';
 import { BaseStep } from '../BaseStep';
 import { DremManager } from '../../manager';
+import { Vault } from '../../vault';
 import { ERC20_ABI } from '../../abis/ERC20';
 import { AssetNotWhitelisted } from '../../lib/errors';
 
@@ -31,7 +32,7 @@ export class UniswapV3SwapStep extends BaseStep {
     // could have a deadline, but that is really always now
 
     constructor(manager: DremManager) {
-        super();
+        super(manager);
 
         // get an sdk to use
         var sdk = manager.sdk();
@@ -41,13 +42,10 @@ export class UniswapV3SwapStep extends BaseStep {
 
         // get the asset registry
         this.assetRegistry = sdk.AssetRegistry;
-
-        // keep the manager
-        this.manager = manager;
     }
 
     // need to be able to load a step --> should autoload the amount in
-    async load(vault: any, stepKey: number): void {
+    async load(vault: Vault, stepKey: number): Promise<void> {
         // get the step data out of the mapping
 
         // trace the path from transfer to output
@@ -60,7 +58,7 @@ export class UniswapV3SwapStep extends BaseStep {
     // setter for fixed arg data (don't need approvals, as the vault will handle these)
     // https://docs.uniswap.org/sdk/v3/guides/routing
     // note on tokens: they take the chain id as a number, the contract, and a number of decimals (don't need the token name or symbol, even though they use it in the example)
-    async setPath(tokenIn: string, tokenOut: string, averageFlowEstimate: number): void {
+    async setPath(tokenIn: string, tokenOut: string, averageFlowEstimate: number): Promise<void> {
         // validate token in (whitelisted)
         var whitelisted: bool;
         whitelisted = this.AssetRegistry.isAssetWhitelisted(tokenIn);

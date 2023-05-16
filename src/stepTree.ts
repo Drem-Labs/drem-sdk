@@ -25,12 +25,9 @@ export class StepTree {
     // add a node
     // good to check the wind percent later, as it doesn't require anything
     // in the step, can add
-    async insert(parentIndex: number, key: number, step: BaseStep, windPercent: number): Promise<void> {
+    async insert(parentIndex: number, step: BaseStep, windPercent: number): Promise<void> {
         // validate the step
         await this._validateStep(step);
-
-        // create the node
-        var newNode = new Node(parentIndex, key, step, windPercent);
 
         // case 1: need to set the root
         if (this.root === undefined) {
@@ -43,7 +40,7 @@ export class StepTree {
             this.root = this.nextNodeKey;
 
             // set the node
-            this.nodes[this.nextNodeKey] = newNode;
+            this.nodes[this.nextNodeKey] = new Node(parentIndex, this.nextNodeKey, step, windPercent);
         }
         else {
             // get the parent
@@ -54,7 +51,6 @@ export class StepTree {
             if ((parentKey === 0) || (parentKey >= this.nextNodeKey)) { throw new NodeInvalidParentError('Parent must be between 0 and ' + this.nextNodeKey); }
 
             // need non-zero wind
-            // THIS IS UP FOR DEBATE AT THE SMART CONTRACT LEVEL
             if (windPercent === 0) { throw new NodeWindPercentZeroError('Nodes must wind'); }
 
             // sum the wind percents & see if there is any room for more (children cannot access parent nodes, so it must be done here)
@@ -161,6 +157,8 @@ export class StepTree {
     - cannot insert keys between each other, must remove node and rebuild children if you want to switch the order
         - can add this functionality later, just more complex than necessary for MVP
 - removals recurse, so be careful!
+- we can build getters, but I am not sure if this will create much value, other than adding complexity
+    - nodes in a mapping seem to make sense, allowing iteration anyway, so easiest just to leave them as is
 */
 
 /* To Do:
