@@ -19,10 +19,10 @@ export function getPolygonMumbaiSdk(defaultSignerOrProvider) {
         "FeeController": getContract('0x9f814Ff3fE04099cDD04Ad93C0307fE09F8194f9', polygonMumbai_FeeController_abi, defaultSignerOrProvider),
         "PriceAggreagtor": getContract('0xd804c3DF1AB160fc7cb406F9902ea3be43107e42', polygonMumbai_PriceAggreagtor_abi, defaultSignerOrProvider),
         "AssetRegistry": getContract('0x6dC1CD636fd04C437F48d61d92C4CC2AccBAC1cB', polygonMumbai_AssetRegistry_abi, defaultSignerOrProvider),
-        "VaultDeployer": getContract('0x33334081Bb86EDDDa17ac9c90E347Dd0ec2EDed9', polygonMumbai_VaultDeployer_abi, defaultSignerOrProvider),
-        "Vault": getContract('0xfbD21fC5300fEa410E6786eb0C5A663009230097', polygonMumbai_Vault_abi, defaultSignerOrProvider),
+        "VaultDeployer": getContract('0x0Cbb6850d43a9a40b2265851E63488cE7D29bbf8', polygonMumbai_VaultDeployer_abi, defaultSignerOrProvider),
+        "Vault": getContract('0xb625c3af5CE0a4c9a2ee6188d6e29146906B2e0D', polygonMumbai_Vault_abi, defaultSignerOrProvider),
         "steps": {
-            "TransferStep": getContract('0x42E77022147BE8e35A4a64b03091C26C77ADD346', polygonMumbai_steps_TransferStep_abi, defaultSignerOrProvider),
+            "TransferStep": getContract('0x6B6ec4B5f1d9230BabaA7120fc2775B4cfD26321', polygonMumbai_steps_TransferStep_abi, defaultSignerOrProvider),
             "UniswapV3SwapStep": getContract('0x6a70E935Ae5Cec477413a6B8bc1b508577c059F9', polygonMumbai_steps_UniswapV3SwapStep_abi, defaultSignerOrProvider),
         },
         "testing": {

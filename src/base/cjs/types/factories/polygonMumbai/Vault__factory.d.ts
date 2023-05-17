@@ -17,7 +17,7 @@ export declare class Vault__factory {
             readonly type: "address";
         }, {
             readonly internalType: "address";
-            readonly name: "_feeRegistry";
+            readonly name: "_feeController";
             readonly type: "address";
         }];
         readonly stateMutability: "nonpayable";
@@ -383,6 +383,41 @@ export declare class Vault__factory {
             readonly internalType: "address";
             readonly name: "";
             readonly type: "address";
+        }];
+        readonly stateMutability: "view";
+        readonly type: "function";
+    }, {
+        readonly inputs: readonly [{
+            readonly internalType: "uint256";
+            readonly name: "_stepNodeKey";
+            readonly type: "uint256";
+        }];
+        readonly name: "getNode";
+        readonly outputs: readonly [{
+            readonly components: readonly [{
+                readonly internalType: "uint8";
+                readonly name: "parent";
+                readonly type: "uint8";
+            }, {
+                readonly internalType: "uint8[9]";
+                readonly name: "children";
+                readonly type: "uint8[9]";
+            }, {
+                readonly internalType: "uint8";
+                readonly name: "key";
+                readonly type: "uint8";
+            }, {
+                readonly internalType: "address";
+                readonly name: "stepAddress";
+                readonly type: "address";
+            }, {
+                readonly internalType: "uint256";
+                readonly name: "windPercent";
+                readonly type: "uint256";
+            }];
+            readonly internalType: "struct StepTreeLib.Node";
+            readonly name: "";
+            readonly type: "tuple";
         }];
         readonly stateMutability: "view";
         readonly type: "function";

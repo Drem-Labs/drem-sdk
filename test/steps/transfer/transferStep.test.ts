@@ -3,7 +3,6 @@ import { user, manager, giveMatic } from '../../reference/setup';
 import { VaultDeployer } from '../../../src/vaultDeployer';
 import { StepTree } from '../../../src/stepTree';
 import { TransferStep } from '../../../src/steps/transfer/transferStep';
-
 import { DeploymentInfo } from '../../../src/types/DataTypes/DeploymentInfo';
 
 describe('TransferStep', () => {
@@ -31,7 +30,7 @@ describe('TransferStep', () => {
             var transferStep = new TransferStep(manager);
 
             // insert the transfer step into the tree
-            await stepTree.insert(0, 1, transferStep, 0);
+            await stepTree.insert(0, transferStep, 0);
 
             // give matic to the user
             await giveMatic(user.address, 1);
@@ -40,10 +39,10 @@ describe('TransferStep', () => {
             var preciseAmount = (1 * (10 ** (await mockERC20.decimals()))).toString();
             await mockERC20.mint(user.address, preciseAmount);
 
-            // set the funds into the transfer step (1 eth)
+            // set the funds into the transfer step (1 matic)
             await transferStep.setFundsIn(1, mockERC20.address);
 
-            // check the alloance with the transfer step
+            // check the allowance with the transfer step
             await transferStep.checkAllowance(vaultDeployer.base.address);
 
             // create some null fee info

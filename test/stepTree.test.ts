@@ -24,7 +24,7 @@ describe('StepTree', () => {
       var stepTree = new StepTree(manager);
 
       // add a root node
-      await stepTree.insert(0, 1, transferStep, 0);
+      await stepTree.insert(0, transferStep, 0);
 
       // assert that the root node matches the parentIndex, key, step, and wind percent (no children)
       expect(stepTree.nodes[1].getParentIndex()).toBe(0);

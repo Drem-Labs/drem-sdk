@@ -1,40 +1,43 @@
 import { Signer, Contract, BigNumber, utils, providers } from 'ethers';
 import { BaseStep } from '../BaseStep';
 import { DremManager } from '../../manager';
+import { Vault } from '../../vault';
 import { ERC20_ABI } from '../../abis/ERC20';
 import { VariableArgsNotSetError, InsufficientBalance, InsufficientAllowance } from '../../lib/errors';
 
 // really, the transfer step does not do much, so this is just filler to maintain project structure
 export class TransferStep extends BaseStep {
-    // going to want to keep the manager to use the signer later
-        // want this to be updated in one place if it changes
-    private manager: DremManager;
-
     // amount, denomination asset
     private amount: number;
     private denominationAsset: Contract;
 
     // constructor should take a manager and get the step
     constructor(manager: DremManager) {
-        super();
+        super(manager);
 
         // get the transfer step
         this.base = manager.sdk().steps.TransferStep;
-
-        // keep the manger
-        this.manager = manager;
     }
 
     // no fixed args, so no need to set them
 
+    // load from a vault (no use for the stepkey)
+    async load(vault: Vault, stepKey: number): Promise<void> {
+        // get the address
+        var denominationAssetAddress = await vault.base.getDenominationAsset();
+
+        // set the denomination asset
+        this.denominationAsset = new Contract(denominationAssetAddress, ERC20_ABI, this.manager.defaultSignerOrProvider);
+    }
+
     // setter for variable arg data
     // allow any number to be input, as this will be converted when getting variable arg data
-    async setFundsIn(amount: number, denominationAsset: string): Promise<void> {
-        this.denominationAsset = new Contract(denominationAsset, ERC20_ABI, this.manager.defaultSignerOrProvider);
+    async setFundsIn(amount: number, denominationAssetAddress: string): Promise<void> {
+        this.denominationAsset = new Contract(denominationAssetAddress, ERC20_ABI, this.manager.defaultSignerOrProvider);
         this.amount = amount;
 
         // check the funds in, and set them to 0 if they are incorrect
-        this.checkFunds().catch((error) => {
+        await this.checkFunds().catch((error) => {
             this.amount = 0;
 
             // throw the error

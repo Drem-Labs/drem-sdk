@@ -81,6 +81,16 @@ export class Node {
         this.children.push(childKey);
     }
 
+    // push many children
+    pushChildren(childrenKeys: number[]): void {
+        if ((this.children.length + childrenKeys.length) >= MAX_CHILDREN) {
+            throw new NodeOutOfBoundsError('children will overflow with addition');
+        }
+
+        // concatenate the arrays
+        this.children.concat(childrenKeys);
+    }
+
     // add a child
     addChild(childIndex: number, childKey: number): void {
         // validate both of them as keys (essentially the same)
@@ -90,6 +100,7 @@ export class Node {
         // splice the child in where it is supposed to go
         this.children.splice(childIndex, 0, childKey)
     }
+
 
     // replace a child
 

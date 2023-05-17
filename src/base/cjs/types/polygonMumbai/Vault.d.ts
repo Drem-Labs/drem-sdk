@@ -2,6 +2,28 @@ import type { BaseContract, BigNumber, BigNumberish, BytesLike, CallOverrides, C
 import type { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
 import type { Listener, Provider } from "@ethersproject/providers";
 import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from "../common";
+export declare namespace StepTreeLib {
+    type NodeStruct = {
+        parent: PromiseOrValue<BigNumberish>;
+        children: PromiseOrValue<BigNumberish>[];
+        key: PromiseOrValue<BigNumberish>;
+        stepAddress: PromiseOrValue<string>;
+        windPercent: PromiseOrValue<BigNumberish>;
+    };
+    type NodeStructOutput = [
+        number,
+        number[],
+        number,
+        string,
+        BigNumber
+    ] & {
+        parent: number;
+        children: number[];
+        key: number;
+        stepAddress: string;
+        windPercent: BigNumber;
+    };
+}
 export declare namespace DataTypes {
     type StepInfoStruct = {
         interactionAddress: PromiseOrValue<string>;
@@ -61,6 +83,7 @@ export interface VaultInterface extends utils.Interface {
         "execute(address,bytes)": FunctionFragment;
         "getAdmin()": FunctionFragment;
         "getDenominationAsset()": FunctionFragment;
+        "getNode(uint256)": FunctionFragment;
         "getSteps()": FunctionFragment;
         "getTotalSteps()": FunctionFragment;
         "increaseAllowance(address,uint256)": FunctionFragment;
@@ -80,7 +103,7 @@ export interface VaultInterface extends utils.Interface {
         "windSteps(uint256,bytes[])": FunctionFragment;
         "withdraw(uint256,(address,uint256)[])": FunctionFragment;
     };
-    getFunction(nameOrSignatureOrTopic: "ASSET_REGISTRY" | "DECIMAL_SHARE_BUFFER" | "DREM_HUB" | "FEE_CONTROLLER" | "MAX_SHARES" | "MAX_STEPS" | "MAX_VALUE" | "MIN_SHARES" | "PRECISION_FACTOR" | "PRICE_AGGREGATOR" | "VERSION" | "allowance" | "approve" | "balanceOf" | "cumulativePaid" | "cumulativeTime" | "decimals" | "decreaseAllowance" | "execute" | "getAdmin" | "getDenominationAsset" | "getSteps" | "getTotalSteps" | "increaseAllowance" | "init" | "name" | "onERC1155BatchReceived" | "onERC1155Received" | "onERC721Received" | "stakeValue" | "supportsInterface" | "symbol" | "totalSupply" | "totalValue" | "transfer" | "transferFrom" | "unwindSteps" | "windSteps" | "withdraw"): FunctionFragment;
+    getFunction(nameOrSignatureOrTopic: "ASSET_REGISTRY" | "DECIMAL_SHARE_BUFFER" | "DREM_HUB" | "FEE_CONTROLLER" | "MAX_SHARES" | "MAX_STEPS" | "MAX_VALUE" | "MIN_SHARES" | "PRECISION_FACTOR" | "PRICE_AGGREGATOR" | "VERSION" | "allowance" | "approve" | "balanceOf" | "cumulativePaid" | "cumulativeTime" | "decimals" | "decreaseAllowance" | "execute" | "getAdmin" | "getDenominationAsset" | "getNode" | "getSteps" | "getTotalSteps" | "increaseAllowance" | "init" | "name" | "onERC1155BatchReceived" | "onERC1155Received" | "onERC721Received" | "stakeValue" | "supportsInterface" | "symbol" | "totalSupply" | "totalValue" | "transfer" | "transferFrom" | "unwindSteps" | "windSteps" | "withdraw"): FunctionFragment;
     encodeFunctionData(functionFragment: "ASSET_REGISTRY", values?: undefined): string;
     encodeFunctionData(functionFragment: "DECIMAL_SHARE_BUFFER", values?: undefined): string;
     encodeFunctionData(functionFragment: "DREM_HUB", values?: undefined): string;
@@ -102,6 +125,7 @@ export interface VaultInterface extends utils.Interface {
     encodeFunctionData(functionFragment: "execute", values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>]): string;
     encodeFunctionData(functionFragment: "getAdmin", values?: undefined): string;
     encodeFunctionData(functionFragment: "getDenominationAsset", values?: undefined): string;
+    encodeFunctionData(functionFragment: "getNode", values: [PromiseOrValue<BigNumberish>]): string;
     encodeFunctionData(functionFragment: "getSteps", values?: undefined): string;
     encodeFunctionData(functionFragment: "getTotalSteps", values?: undefined): string;
     encodeFunctionData(functionFragment: "increaseAllowance", values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]): string;
@@ -169,6 +193,7 @@ export interface VaultInterface extends utils.Interface {
     decodeFunctionResult(functionFragment: "execute", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "getAdmin", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "getDenominationAsset", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getNode", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "getSteps", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "getTotalSteps", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "increaseAllowance", data: BytesLike): Result;
@@ -265,6 +290,7 @@ export interface Vault extends BaseContract {
         }): Promise<ContractTransaction>;
         getAdmin(overrides?: CallOverrides): Promise<[string]>;
         getDenominationAsset(overrides?: CallOverrides): Promise<[string]>;
+        getNode(_stepNodeKey: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[StepTreeLib.NodeStructOutput]>;
         getSteps(overrides?: CallOverrides): Promise<[string[]]>;
         getTotalSteps(overrides?: CallOverrides): Promise<[BigNumber]>;
         increaseAllowance(spender: PromiseOrValue<string>, addedValue: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
@@ -331,6 +357,7 @@ export interface Vault extends BaseContract {
     }): Promise<ContractTransaction>;
     getAdmin(overrides?: CallOverrides): Promise<string>;
     getDenominationAsset(overrides?: CallOverrides): Promise<string>;
+    getNode(_stepNodeKey: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<StepTreeLib.NodeStructOutput>;
     getSteps(overrides?: CallOverrides): Promise<string[]>;
     getTotalSteps(overrides?: CallOverrides): Promise<BigNumber>;
     increaseAllowance(spender: PromiseOrValue<string>, addedValue: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
@@ -391,6 +418,7 @@ export interface Vault extends BaseContract {
         execute(_to: PromiseOrValue<string>, _data: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<string>;
         getAdmin(overrides?: CallOverrides): Promise<string>;
         getDenominationAsset(overrides?: CallOverrides): Promise<string>;
+        getNode(_stepNodeKey: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<StepTreeLib.NodeStructOutput>;
         getSteps(overrides?: CallOverrides): Promise<string[]>;
         getTotalSteps(overrides?: CallOverrides): Promise<BigNumber>;
         increaseAllowance(spender: PromiseOrValue<string>, addedValue: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<boolean>;
@@ -446,6 +474,7 @@ export interface Vault extends BaseContract {
         }): Promise<BigNumber>;
         getAdmin(overrides?: CallOverrides): Promise<BigNumber>;
         getDenominationAsset(overrides?: CallOverrides): Promise<BigNumber>;
+        getNode(_stepNodeKey: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
         getSteps(overrides?: CallOverrides): Promise<BigNumber>;
         getTotalSteps(overrides?: CallOverrides): Promise<BigNumber>;
         increaseAllowance(spender: PromiseOrValue<string>, addedValue: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
@@ -513,6 +542,7 @@ export interface Vault extends BaseContract {
         }): Promise<PopulatedTransaction>;
         getAdmin(overrides?: CallOverrides): Promise<PopulatedTransaction>;
         getDenominationAsset(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getNode(_stepNodeKey: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
         getSteps(overrides?: CallOverrides): Promise<PopulatedTransaction>;
         getTotalSteps(overrides?: CallOverrides): Promise<PopulatedTransaction>;
         increaseAllowance(spender: PromiseOrValue<string>, addedValue: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
