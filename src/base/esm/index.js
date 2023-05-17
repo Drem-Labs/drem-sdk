@@ -22,7 +22,7 @@ export function getPolygonMumbaiSdk(defaultSignerOrProvider) {
         "VaultDeployer": getContract('0x0Cbb6850d43a9a40b2265851E63488cE7D29bbf8', polygonMumbai_VaultDeployer_abi, defaultSignerOrProvider),
         "Vault": getContract('0xb625c3af5CE0a4c9a2ee6188d6e29146906B2e0D', polygonMumbai_Vault_abi, defaultSignerOrProvider),
         "steps": {
-            "TransferStep": getContract('0x42E77022147BE8e35A4a64b03091C26C77ADD346', polygonMumbai_steps_TransferStep_abi, defaultSignerOrProvider),
+            "TransferStep": getContract('0x6B6ec4B5f1d9230BabaA7120fc2775B4cfD26321', polygonMumbai_steps_TransferStep_abi, defaultSignerOrProvider),
             "UniswapV3SwapStep": getContract('0x6a70E935Ae5Cec477413a6B8bc1b508577c059F9', polygonMumbai_steps_UniswapV3SwapStep_abi, defaultSignerOrProvider),
         },
         "testing": {

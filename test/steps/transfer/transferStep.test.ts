@@ -42,7 +42,7 @@ describe('TransferStep', () => {
             // set the funds into the transfer step (1 matic)
             await transferStep.setFundsIn(1, mockERC20.address);
 
-            // check the alloance with the transfer step
+            // check the allowance with the transfer step
             await transferStep.checkAllowance(vaultDeployer.base.address);
 
             // create some null fee info

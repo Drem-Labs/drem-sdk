@@ -29,7 +29,7 @@ function getPolygonMumbaiSdk(defaultSignerOrProvider) {
         "VaultDeployer": getContract('0x0Cbb6850d43a9a40b2265851E63488cE7D29bbf8', VaultDeployer_json_1.default, defaultSignerOrProvider),
         "Vault": getContract('0xb625c3af5CE0a4c9a2ee6188d6e29146906B2e0D', Vault_json_1.default, defaultSignerOrProvider),
         "steps": {
-            "TransferStep": getContract('0x42E77022147BE8e35A4a64b03091C26C77ADD346', TransferStep_json_1.default, defaultSignerOrProvider),
+            "TransferStep": getContract('0x6B6ec4B5f1d9230BabaA7120fc2775B4cfD26321', TransferStep_json_1.default, defaultSignerOrProvider),
             "UniswapV3SwapStep": getContract('0x6a70E935Ae5Cec477413a6B8bc1b508577c059F9', UniswapV3SwapStep_json_1.default, defaultSignerOrProvider),
         },
         "testing": {

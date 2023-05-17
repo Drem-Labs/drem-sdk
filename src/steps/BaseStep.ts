@@ -31,12 +31,12 @@ export class BaseStep {
     // this will be overloaded with real arguments using the vault
     // base step needs to have the vault & steptree as type any, so there is no conflict
     //
-    async load(vault: any, stepKey: number): void {
+    async load(vault: any, stepKey: number): Promise<void> {
         throw new InvalidStepError('This step cannot be loaded. Please contact SDK development team.');
     }
 
     // autoset (overridden in steps)
-    async autoset(amountIn: number): void {
+    async autoset(amountIn: number): Promise<void> {
 
     }
 

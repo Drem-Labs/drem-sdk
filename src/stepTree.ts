@@ -164,5 +164,9 @@ export class StepTree {
 /* To Do:
 - validate the children!
     - ensure that we are combining correct amount in & outs
+    - there is an algorithm in the step tree lib --> can use it to validate here as well
+        - worth it to deploy contracts that can easily verify?
+            - step tree contract?
+            - this would be the most consistent with the on-chain implementation, and rpcs are fast enough to make it work well
 - need to write a ton more tests for this (workable, but we want to be more sure, as users are going to do a ton to these strategies, and we want to ensure a seamless deployment experience)
 */
