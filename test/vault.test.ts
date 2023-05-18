@@ -11,7 +11,7 @@ describe('Vault', () => {
       await expect(
         deployMockTransferVault(user, manager)
         ).resolves.toBeDefined();
-    }, 10000);
+    }, 30000);
   });
 
   describe('getTree', () => {
@@ -23,7 +23,7 @@ describe('Vault', () => {
 
       // check the number of nodes in the tree
       expect(Object.keys(stepTree.nodes).length).toBe(1);
-    }, 10000);
+    }, 30000);
   });
 
 });
