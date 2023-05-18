@@ -19,7 +19,7 @@ export class StepDirectory {
     // keep all the classes (must be here, as they all inherit from the manager)
     private stepMapping: Record<number, Record<string, Class<DremManager>>> = {
         80001: {
-            "0x42e77022147be8e35a4a64b03091c26c77add346": TransferStep,
+            "0x6b6ec4b5f1d9230babaa7120fc2775b4cfd26321": TransferStep,
             /*"0x6a70e935ae5cec477413a6b8bc1b508577c059f9": UniswapV3SwapStep*/
         }
     };

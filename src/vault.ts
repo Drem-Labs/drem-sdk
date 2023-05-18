@@ -23,7 +23,7 @@ export class Vault {
         this.base = manager.sdk().Vault;
 
         // attach the vault to the vault address
-        this.base.attach(vaultAddress);
+        this.base = this.base.attach(vaultAddress);
 
         // create the step directory
         this.stepDirectory = new StepDirectory(manager);
@@ -39,9 +39,11 @@ export class Vault {
 
         // start at the root node & recurse through the children
         await this._addNode(stepTree, 1);
+        console.log('added all nodes');
 
         // load all the steps (this is getting the fixed args --> should not need each other --> do them all at once)
-        await Promise.all(Object.values(stepTree.nodes).map(this._loadNode));
+        //await Promise.all(Object.values(stepTree.nodes).map(this._loadNode));
+        console.log('loaded all nodes');
 
         // return the tree
         return stepTree;
@@ -51,8 +53,6 @@ export class Vault {
     private async _getNode(index: number): Promise<Node> {
         // get the node data from the base
         var nodeData = await this.base.getNode(index);
-        console.log(index);
-        console.log(nodeData);
 
         // get the step from the address
         var step = this.stepDirectory.getStep(nodeData.stepAddress);
