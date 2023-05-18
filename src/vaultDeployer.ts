@@ -34,9 +34,9 @@ export class VaultDeployer {
         var receipt = await resp.wait(BLOCK_CONFIRMATIONS);
 
         // need to query an event to get the vault address
-        var filter = this.base.filters.VaultDeployed();
-        console.log(filter);
-
+        var filter = this.base.filters.VaultDeployed(admin);
+        var events = await this.base.queryFilter(filter, "latest");
+        vaultAddress = events[0].args.vault;
 
         return vaultAddress;
     }
