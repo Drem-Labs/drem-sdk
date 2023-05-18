@@ -4,12 +4,12 @@ import { Percent } from './Percent';
 import { StepInfo } from './DataTypes/StepInfo';
 
 // precision factor (for nodes)
-const PRECISION_FACTOR = 1_000_000;
+export const PRECISION_FACTOR = 1_000_000;
 
 // compute the maximum of each node
-const MAX_NODES = 10;
-const MAX_PARENT = MAX_NODES - 1;
-const MAX_CHILDREN = MAX_NODES - 1;
+export const MAX_NODES = 10;
+export const MAX_PARENT = MAX_NODES - 1;
+export const MAX_CHILDREN = MAX_NODES - 1;
 
 // need to have safe setters, as these are complex
 // note: these nodes do NOT need to have children, as these will be assigned in the smart contract

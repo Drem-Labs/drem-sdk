@@ -7,17 +7,24 @@ import { InvalidChainError } from '../src/lib/errors';
 
 describe('Vault', () => {
   describe('constructor', () => {
-    it('should create a vault', () => {
-      expect(() => {
-        var vault = deployMockTransferVault(user, manager);
-      }).not.toThrow();
-    });
+    it('should create a vault', async () => {
+      await expect(
+        deployMockTransferVault(user, manager)
+        ).resolves.toBeDefined();
+    }, 10000);
   });
 
-  describe('', () => {
-    it('should get a step tree', () => {
+  describe('steps', () => {
+    it('should get a step tree', async () => {
+      // deploy the vault
+      var vault = await deployMockTransferVault(user, manager);
 
-    });
+      // get the tree
+      var stepTree = await vault.getTree();
+
+      // check the number of nodes in the tree
+      expect(Object.keys(stepTree.nodes).length).toBe(1);
+    }, 10000);
   });
 
 });

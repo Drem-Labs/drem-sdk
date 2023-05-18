@@ -2,13 +2,14 @@ import { Wallet } from 'ethers';
 import { giveMatic } from '../setup';
 import { DremManager } from '../../../src/manager';
 import { VaultDeployer } from '../../../src/vaultDeployer';
+import { Vault } from '../../../src/vault';
 import { StepTree } from '../../../src/stepTree';
 import { TransferStep } from '../../../src/steps/transfer/transferStep';
 import { DeploymentInfo } from '../../../src/types/DataTypes/DeploymentInfo';
 import { FeeInfo } from '../../../src/types/DataTypes/FeeInfo';
 
 // function that just deploys a simple mock transfer vault
-export async function deployMockTransferVault(user: Wallet, manager: DremManager): Promise<string> {
+export async function deployMockTransferVault(user: Wallet, manager: DremManager): Promise<Vault> {
     // create a vault deployer
     var vaultDeployer = new VaultDeployer(manager);
 
@@ -43,7 +44,10 @@ export async function deployMockTransferVault(user: Wallet, manager: DremManager
     // deploy the vault with the deployer
     var address = await vaultDeployer.deployVault(user.address, "Sample Vault", "SV", mockERC20.address, feeInfo, stepTree);
 
-    return address;
+    // make a vault
+    var vault = new Vault(manager, address);
+
+    return vault;
 }
 
 /* NOTES
