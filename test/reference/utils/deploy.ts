@@ -43,6 +43,7 @@ export async function deployMockTransferVault(user: Wallet, manager: DremManager
 
     // deploy the vault with the deployer
     var address = await vaultDeployer.deployVault(user.address, "Sample Vault", "SV", mockERC20.address, feeInfo, stepTree);
+    console.log(address);
 
     // make a vault
     var vault = new Vault(manager, address);

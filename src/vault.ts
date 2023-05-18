@@ -51,6 +51,8 @@ export class Vault {
     private async _getNode(index: number): Promise<Node> {
         // get the node data from the base
         var nodeData = await this.base.getNode(index);
+        console.log(index);
+        console.log(nodeData);
 
         // get the step from the address
         var step = this.stepDirectory.getStep(nodeData.stepAddress);
@@ -70,6 +72,11 @@ export class Vault {
 
     // internal add node
     private async _addNode(stepTree: StepTree, nodeIndex: number): Promise<void> {
+        // if the node index is 0, return
+        if (nodeIndex === 0) {
+            return;
+        }
+
         // get the node
         var node = await this._getNode(nodeIndex);
 

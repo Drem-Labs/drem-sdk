@@ -14,9 +14,8 @@ describe('Vault', () => {
     }, 10000);
   });
 
-  describe('steps', () => {
+  describe('getTree', () => {
     it('should get a step tree', async () => {
-      // deploy the vault
       var vault = await deployMockTransferVault(user, manager);
 
       // get the tree
