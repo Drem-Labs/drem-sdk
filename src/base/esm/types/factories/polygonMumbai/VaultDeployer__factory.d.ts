@@ -68,6 +68,31 @@ export declare class VaultDeployer__factory {
         readonly name: "Upgraded";
         readonly type: "event";
     }, {
+        readonly anonymous: false;
+        readonly inputs: readonly [{
+            readonly indexed: true;
+            readonly internalType: "address";
+            readonly name: "creator";
+            readonly type: "address";
+        }, {
+            readonly indexed: false;
+            readonly internalType: "address";
+            readonly name: "vault";
+            readonly type: "address";
+        }, {
+            readonly indexed: false;
+            readonly internalType: "string";
+            readonly name: "name";
+            readonly type: "string";
+        }, {
+            readonly indexed: false;
+            readonly internalType: "string";
+            readonly name: "symbol";
+            readonly type: "string";
+        }];
+        readonly name: "VaultDeployed";
+        readonly type: "event";
+    }, {
         readonly inputs: readonly [];
         readonly name: "DREM_HUB";
         readonly outputs: readonly [{

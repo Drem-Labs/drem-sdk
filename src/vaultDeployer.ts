@@ -32,12 +32,21 @@ export class VaultDeployer {
         // process the transaction and get the value
         var resp = await this.base.deployVault(deploymentInfo.toStruct(), variableArgs);
         var receipt = await resp.wait(BLOCK_CONFIRMATIONS);
-        vaultAddress = receipt.transaction.value;
+
+        // need to query an event to get the vault address
+        var filter = this.base.filters.VaultDeployed();
+        console.log(filter);
+
 
         return vaultAddress;
     }
 }
 
+
+/* NOTES
+- this assumes that the admin is the msg.sender, which may not always be the case
+    - going to change the event at the smart contract level
+*/
 
 /*
 To Do:
