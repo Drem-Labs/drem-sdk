@@ -39,11 +39,15 @@ export class Vault {
 
         // start at the root node & recurse through the children
         await this._addNode(stepTree, 1);
-        console.log('added all nodes');
 
         // load all the steps (this is getting the fixed args --> should not need each other --> do them all at once)
-        //await Promise.all(Object.values(stepTree.nodes).map(this._loadNode));
-        console.log('loaded all nodes');
+        // this lacks context if passed with .map, so going to use a for loop
+        const promises: Promise<void>[] = [];
+        for (var node of Object.values(stepTree.nodes)) {
+            const promise = this._loadNode(node);
+            promises.push(promise);
+        }
+        await Promise.all(promises);
 
         // return the tree
         return stepTree;
@@ -89,7 +93,7 @@ export class Vault {
 
     // load a node's step
     private async _loadNode(node: Node): Promise<void> {
-        node.getStep().load(this, node.getKey());
+        await node.getStep().load(this, node.getKey());
     }
 
     // wind --> pass sharesIn
