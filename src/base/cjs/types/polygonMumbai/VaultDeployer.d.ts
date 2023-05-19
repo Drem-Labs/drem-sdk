@@ -83,11 +83,13 @@ export interface VaultDeployerInterface extends utils.Interface {
         "BeaconUpgraded(address)": EventFragment;
         "Initialized(uint8)": EventFragment;
         "Upgraded(address)": EventFragment;
+        "VaultDeployed(address,address,string,string)": EventFragment;
     };
     getEvent(nameOrSignatureOrTopic: "AdminChanged"): EventFragment;
     getEvent(nameOrSignatureOrTopic: "BeaconUpgraded"): EventFragment;
     getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
     getEvent(nameOrSignatureOrTopic: "Upgraded"): EventFragment;
+    getEvent(nameOrSignatureOrTopic: "VaultDeployed"): EventFragment;
 }
 export interface AdminChangedEventObject {
     previousAdmin: string;
@@ -115,6 +117,19 @@ export interface UpgradedEventObject {
 }
 export type UpgradedEvent = TypedEvent<[string], UpgradedEventObject>;
 export type UpgradedEventFilter = TypedEventFilter<UpgradedEvent>;
+export interface VaultDeployedEventObject {
+    creator: string;
+    vault: string;
+    name: string;
+    symbol: string;
+}
+export type VaultDeployedEvent = TypedEvent<[
+    string,
+    string,
+    string,
+    string
+], VaultDeployedEventObject>;
+export type VaultDeployedEventFilter = TypedEventFilter<VaultDeployedEvent>;
 export interface VaultDeployer extends BaseContract {
     connect(signerOrProvider: Signer | Provider | string): this;
     attach(addressOrName: string): this;
@@ -179,6 +194,8 @@ export interface VaultDeployer extends BaseContract {
         Initialized(version?: null): InitializedEventFilter;
         "Upgraded(address)"(implementation?: PromiseOrValue<string> | null): UpgradedEventFilter;
         Upgraded(implementation?: PromiseOrValue<string> | null): UpgradedEventFilter;
+        "VaultDeployed(address,address,string,string)"(creator?: PromiseOrValue<string> | null, vault?: null, name?: null, symbol?: null): VaultDeployedEventFilter;
+        VaultDeployed(creator?: PromiseOrValue<string> | null, vault?: null, name?: null, symbol?: null): VaultDeployedEventFilter;
     };
     estimateGas: {
         DREM_HUB(overrides?: CallOverrides): Promise<BigNumber>;

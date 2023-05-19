@@ -4,12 +4,12 @@ import { Percent } from './Percent';
 import { StepInfo } from './DataTypes/StepInfo';
 
 // precision factor (for nodes)
-const PRECISION_FACTOR = 1_000_000;
+export const PRECISION_FACTOR = 1_000_000;
 
 // compute the maximum of each node
-const MAX_NODES = 10;
-const MAX_PARENT = MAX_NODES - 1;
-const MAX_CHILDREN = MAX_NODES - 1;
+export const MAX_NODES = 10;
+export const MAX_PARENT = MAX_NODES - 1;
+export const MAX_CHILDREN = MAX_NODES - 1;
 
 // need to have safe setters, as these are complex
 // note: these nodes do NOT need to have children, as these will be assigned in the smart contract
@@ -23,7 +23,7 @@ export class Node {
     private step: BaseStep;  // needs to be a step with more complex information
     private windPercent: Percent;
 
-    private children: number[]; // each node can have up to 9 children, this is for internal accounting with the step tree
+    private children: number[] = []; // each node can have up to 9 children, this is for internal accounting with the step tree
 
     // constructor --> set everything at once
     constructor(parentIndex: number, key: number, step: BaseStep, windPercent: number) {
@@ -83,7 +83,7 @@ export class Node {
 
     // push many children
     pushChildren(childrenKeys: number[]): void {
-        if ((this.children.length + childrenKeys.length) >= MAX_CHILDREN) {
+        if ((this.children.length + childrenKeys.length) > MAX_CHILDREN) {
             throw new NodeOutOfBoundsError('children will overflow with addition');
         }
 

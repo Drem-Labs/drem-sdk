@@ -88,6 +88,37 @@ const _abi = [
         type: "event",
     },
     {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: true,
+                internalType: "address",
+                name: "creator",
+                type: "address",
+            },
+            {
+                indexed: false,
+                internalType: "address",
+                name: "vault",
+                type: "address",
+            },
+            {
+                indexed: false,
+                internalType: "string",
+                name: "name",
+                type: "string",
+            },
+            {
+                indexed: false,
+                internalType: "string",
+                name: "symbol",
+                type: "string",
+            },
+        ],
+        name: "VaultDeployed",
+        type: "event",
+    },
+    {
         inputs: [],
         name: "DREM_HUB",
         outputs: [

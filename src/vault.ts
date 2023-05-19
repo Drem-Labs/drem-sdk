@@ -23,13 +23,14 @@ export class Vault {
         this.base = manager.sdk().Vault;
 
         // attach the vault to the vault address
-        this.base.attach(vaultAddress);
+        this.base = this.base.attach(vaultAddress);
 
         // create the step directory
         this.stepDirectory = new StepDirectory(manager);
     }
 
     // need to return the totalValue (account for decimals)
+
 
     // get the tree
     async getTree(): Promise<StepTree> {
@@ -40,9 +41,13 @@ export class Vault {
         await this._addNode(stepTree, 1);
 
         // load all the steps (this is getting the fixed args --> should not need each other --> do them all at once)
-        await Promise.all(stepTree.nodes.map((_, node) => {
-            node.step.load(this, node.getKey());
-        }));
+        // this lacks context if passed with .map, so going to use a for loop
+        const promises: Promise<void>[] = [];
+        for (var node of Object.values(stepTree.nodes)) {
+            const promise = this._loadNode(node);
+            promises.push(promise);
+        }
+        await Promise.all(promises);
 
         // return the tree
         return stepTree;
@@ -70,7 +75,12 @@ export class Vault {
     }
 
     // internal add node
-    private async _addNode(stepTree: StepTree, nodeIndex: number): void {
+    private async _addNode(stepTree: StepTree, nodeIndex: number): Promise<void> {
+        // if the node index is 0, return
+        if (nodeIndex === 0) {
+            return;
+        }
+
         // get the node
         var node = await this._getNode(nodeIndex);
 
@@ -78,10 +88,12 @@ export class Vault {
             // does not really matter which order this happens in, which makes it easily asynchronous
         stepTree.nodes[node.getKey()] = node;
 
-        // add all the children
-        for (var i = 0; i < node.getChildrenLength(); i += 1) {
-            this._addNode(stepTree, node.getChild(i));
-        }
+        await Promise.all(node.getChildren().map(async (childKey) => this._addNode(stepTree, childKey)));
+    }
+
+    // load a node's step
+    private async _loadNode(node: Node): Promise<void> {
+        await node.getStep().load(this, node.getKey());
     }
 
     // wind --> pass sharesIn
