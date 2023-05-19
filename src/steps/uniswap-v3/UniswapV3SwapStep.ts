@@ -1,6 +1,6 @@
 import { Contract } from 'ethers';
 import { AlphaRouter, SwapOptionsSwapRouter02, SwapRoute, SwapType } from '@uniswap/smart-order-router';
-import { CurrencyAmount, Token, fromReadableAmount, TradeType } from '@uniswap/sdk-core';
+import { CurrencyAmount, Token, TradeType } from '@uniswap/sdk-core';
 import { Percent as UniswapPercent } from '@uniswap/sdk-core';
 import { Percent } from '../../types/Percent';
 import { BaseStep } from '../BaseStep';
@@ -10,14 +10,11 @@ import { ERC20_ABI } from '../../abis/ERC20';
 import { AssetNotWhitelisted } from '../../lib/errors';
 
 // set the precision factor to what uniswap docs use
-PRECISION_FACTOR = 10000;
+const PRECISION_FACTOR = 10000;
 
 export class UniswapV3SwapStep extends BaseStep {
     // default slippage to 0.5%
-    private slippage: Percent = 0.005;
-
-    // keep the asset manager
-    private manager: DremManager;
+    private slippage: Percent = Percent(0.005);
 
     // will need an asset registry
     private assetRegistry: any;
@@ -100,10 +97,7 @@ export class UniswapV3SwapStep extends BaseStep {
         const route = await router.route(
             CurrencyAmount.fromRawAmount(
                 uniswapTokenIn,
-                fromReadableAmount(
-                    averageFlowEstimate,
-                    uniswapTokenIn.decimals
-                    ).toString()
+                ethers.utils.parseUnits(averageFlowEstimate, uniswapTokenIn.decimals).toString(),
                 ),
                 uniswapTokenOut,
                 TradeType.EXACT_INPUT,

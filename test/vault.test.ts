@@ -22,7 +22,7 @@ describe('Vault', () => {
       var stepTree = await vault.getTree();
 
       // check the number of nodes in the tree
-      /*expect(Object.keys(stepTree.nodes).length).toBe(1);*/
+      expect(Object.keys(stepTree.nodes).length).toBe(1);
     }, 10000);
   });
 

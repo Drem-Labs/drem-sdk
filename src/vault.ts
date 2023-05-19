@@ -104,7 +104,8 @@ export class Vault {
 /*
 TO DO:
 - would be nice if base had a type
-    - needs to be dependent on what chain the manager is on
+    - needs to be dependent on what chain the manager is on, which I don't have a solution for (maybe typecast on the constructor, but I'm not sure if this is possible)
 - use Promise.all() to add all the children
     - more complex, but more efficient
+- would be good to have wind/unwind, but these are taking a backseat to the collect module
 */

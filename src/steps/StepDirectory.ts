@@ -1,5 +1,5 @@
 import { TransferStep } from './transfer/transferStep';
-/*import { UniswapV3SwapStep } from './uniswap-v3/uniswapV3SwapStep';*/
+import { UniswapV3SwapStep } from './uniswap-v3/uniswapV3SwapStep';
 import { DremManager } from '../manager';
 import { InvalidStepError } from '../lib/errors';
 
@@ -20,7 +20,7 @@ export class StepDirectory {
     private stepMapping: Record<number, Record<string, Class<DremManager>>> = {
         80001: {
             "0x6b6ec4b5f1d9230babaa7120fc2775b4cfd26321": TransferStep,
-            /*"0x6a70e935ae5cec477413a6b8bc1b508577c059f9": UniswapV3SwapStep*/
+            "0x6a70e935ae5cec477413a6b8bc1b508577c059f9": UniswapV3SwapStep
         }
     };
 
