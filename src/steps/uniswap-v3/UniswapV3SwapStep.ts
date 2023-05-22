@@ -1,3 +1,4 @@
+import * as ethers from 'ethers';
 import { Contract } from 'ethers';
 import { AlphaRouter, SwapOptionsSwapRouter02, SwapRoute, SwapType } from '@uniswap/smart-order-router';
 import { CurrencyAmount, Token, TradeType } from '@uniswap/sdk-core';
@@ -14,7 +15,7 @@ const PRECISION_FACTOR = 10000;
 
 export class UniswapV3SwapStep extends BaseStep {
     // default slippage to 0.5%
-    private slippage: Percent = Percent(0.005);
+    private slippage: Percent = new Percent(0.005);
 
     // will need an asset registry
     private assetRegistry: any;
@@ -35,7 +36,7 @@ export class UniswapV3SwapStep extends BaseStep {
         var sdk = manager.sdk();
 
         // get the swap step
-        this.base = steps.UniswapV3SwapStep;
+        this.base = sdk.steps.UniswapV3SwapStep;
 
         // get the asset registry
         this.assetRegistry = sdk.AssetRegistry;
@@ -57,23 +58,37 @@ export class UniswapV3SwapStep extends BaseStep {
     // note on tokens: they take the chain id as a number, the contract, and a number of decimals (don't need the token name or symbol, even though they use it in the example)
     async setPath(tokenIn: string, tokenOut: string, averageFlowEstimate: number): Promise<void> {
         // validate token in (whitelisted)
-        var whitelisted: bool;
-        whitelisted = this.AssetRegistry.isAssetWhitelisted(tokenIn);
+        var whitelisted = this.assetRegistry.isAssetWhitelisted(tokenIn);
 
         // throw if not whitelisted
         if (!whitelisted) {
             throw new AssetNotWhitelisted('Token in is not whitelisted');
         }
 
+        // throw if not a signer (not compatible with base provider)
+
         // token out does not need to be whitelisted, allowing for any assets to be swapped
 
         // set the contracts for the tokens
-        this.tokenIn = Contract(tokenIn, ERC20_ABI, this.manager.defaultSignerOrProvider);
-        this.tokenOut = Contract(tokenOut, ERC20_ABI, this.manager.defaultSignerOrProvider);
+        this.tokenIn = new Contract(tokenIn, ERC20_ABI, this.manager.defaultSignerOrProvider);
+        this.tokenOut = new Contract(tokenOut, ERC20_ABI, this.manager.defaultSignerOrProvider);
 
         // need to create the tokens for uniswap input
         var uniswapTokenIn = await this._getUniswapToken(this.tokenIn);
         var uniswapTokenOut = await this._getUniswapToken(this.tokenOut);
+
+        // need to get the provider
+        var provider: ethers.providers.BaseProvider;
+
+        if (this.manager.defaultSignerOrProvider instanceof ethers.Signer) {
+            provider = this.manager.defaultSignerOrProvider.provider as ethers.providers.BaseProvider;
+        }
+        else if (this.manager.defaultSignerOrProvider instanceof ethers.providers.BaseProvider) {
+            provider = this.manager.defaultSignerOrProvider;
+        }
+        else {
+            provider = this.manager.defaultSignerOrProvider as ethers.providers.BaseProvider;
+        }
 
         // get the path from uniswap
             // note: this path may be imperfect, as it will not account for the whitelisted token
@@ -81,7 +96,7 @@ export class UniswapV3SwapStep extends BaseStep {
             // don't need this anywhere else, so just fine to do it here
         const router = new AlphaRouter({
             chainId: this.manager.chainId,
-            provider: this.manager.defaultSignerOrProvider
+            provider: provider
         });
 
         // create the route
@@ -97,7 +112,7 @@ export class UniswapV3SwapStep extends BaseStep {
         const route = await router.route(
             CurrencyAmount.fromRawAmount(
                 uniswapTokenIn,
-                ethers.utils.parseUnits(averageFlowEstimate, uniswapTokenIn.decimals).toString(),
+                ethers.utils.parseUnits(averageFlowEstimate.toString(), uniswapTokenIn.decimals).toString(),
                 ),
                 uniswapTokenOut,
                 TradeType.EXACT_INPUT,
@@ -105,14 +120,12 @@ export class UniswapV3SwapStep extends BaseStep {
             );
 
         // set the fixed arg data here
-        this.fixedArgData = route;
+        this.fixedArgData = route?.methodParameters?.value;
     }
-
-    // manually set the
 
     // setter for slippage (will be 0.5% by default)
     setSlippage(slippage: number): void {
-        this.slippage = Percent(number);
+        this.slippage = new Percent(slippage);
     }
 
     // getter for slippage
@@ -128,7 +141,7 @@ export class UniswapV3SwapStep extends BaseStep {
     }
 
     // getter to construct uniswap tokens
-    private async _getUniswapToken(token: Contract): Token {
+    private async _getUniswapToken(token: Contract): Promise<Token> {
         var uniswapToken = new Token(
             this.manager.chainId,
             token.address,

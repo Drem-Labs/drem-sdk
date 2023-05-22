@@ -9,6 +9,10 @@ export class BaseStep {
         // want this to be updated in one place if it changes
     protected manager: DremManager;
 
+    // fixed and variable arg data
+    protected fixedArgData: string = "0x00";
+    protected variableArgData: string = "0x00";
+
     // constructor to keep the manager
     constructor(manager: DremManager) {
         // keep the manger
@@ -21,11 +25,11 @@ export class BaseStep {
     // getters for the fixed and variable arg data --> return null bytes
     // lots of conversion going on here --> going to make them promises
     async getFixedArgData(): Promise<string> {
-        return "0x00";
+        return this.fixedArgData;
     }
 
     async getVariableArgData(): Promise<string> {
-        return "0x00";
+        return this.variableArgData;
     }
 
     // this will be overloaded with real arguments using the vault

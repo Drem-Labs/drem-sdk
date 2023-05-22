@@ -17,6 +17,7 @@ export default defineConfig({
         TransferStep: "0x6B6ec4B5f1d9230BabaA7120fc2775B4cfD26321",
         UniswapV3SwapStep: "0x6a70E935Ae5Cec477413a6B8bc1b508577c059F9"
       },
+      DremCollectModule: "0x8D27D2791f687847399843F1BAE08D9810F96603",
       testing: {
         MockERC20: "0x3e02538fDF82daD570A5dB5deDC4CC165061798E"  // should be treated as WETH, as it is eth/usd paired
       }
