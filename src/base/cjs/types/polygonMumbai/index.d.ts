@@ -3,6 +3,7 @@ export type { steps };
 import type * as testing from "./testing";
 export type { testing };
 export type { AssetRegistry } from "./AssetRegistry";
+export type { DremCollectModule } from "./DremCollectModule";
 export type { DremHub } from "./DremHub";
 export type { FeeController } from "./FeeController";
 export type { PriceAggreagtor } from "./PriceAggreagtor";

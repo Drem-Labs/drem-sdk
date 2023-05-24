@@ -23,10 +23,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VaultDeployer__factory = exports.Vault__factory = exports.MockERC20__factory = exports.StepTreeLib__factory = exports.UniswapV3SwapStep__factory = exports.TransferStep__factory = exports.PriceAggregator__factory = exports.PriceAggreagtor__factory = exports.FeeController__factory = exports.DremHub__factory = exports.AssetRegistry__factory = exports.factories = void 0;
+exports.VaultDeployer__factory = exports.Vault__factory = exports.MockERC20__factory = exports.StepTreeLib__factory = exports.UniswapV3SwapStep__factory = exports.TransferStep__factory = exports.PriceAggregator__factory = exports.PriceAggreagtor__factory = exports.FeeController__factory = exports.DremHub__factory = exports.DremCollectModule__factory = exports.AssetRegistry__factory = exports.factories = void 0;
 exports.factories = __importStar(require("./factories"));
 var AssetRegistry__factory_1 = require("./factories/polygonMumbai/AssetRegistry__factory");
 Object.defineProperty(exports, "AssetRegistry__factory", { enumerable: true, get: function () { return AssetRegistry__factory_1.AssetRegistry__factory; } });
+var DremCollectModule__factory_1 = require("./factories/polygonMumbai/DremCollectModule__factory");
+Object.defineProperty(exports, "DremCollectModule__factory", { enumerable: true, get: function () { return DremCollectModule__factory_1.DremCollectModule__factory; } });
 var DremHub__factory_1 = require("./factories/polygonMumbai/DremHub__factory");
 Object.defineProperty(exports, "DremHub__factory", { enumerable: true, get: function () { return DremHub__factory_1.DremHub__factory; } });
 var FeeController__factory_1 = require("./factories/polygonMumbai/FeeController__factory");

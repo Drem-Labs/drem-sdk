@@ -1,5 +1,6 @@
 export * as factories from "./factories";
 export { AssetRegistry__factory } from "./factories/polygonMumbai/AssetRegistry__factory";
+export { DremCollectModule__factory } from "./factories/polygonMumbai/DremCollectModule__factory";
 export { DremHub__factory } from "./factories/polygonMumbai/DremHub__factory";
 export { FeeController__factory } from "./factories/polygonMumbai/FeeController__factory";
 export { PriceAggreagtor__factory } from "./factories/polygonMumbai/PriceAggreagtor__factory";

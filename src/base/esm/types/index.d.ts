@@ -3,6 +3,8 @@ export type { polygonMumbai };
 export * as factories from "./factories";
 export type { AssetRegistry } from "./polygonMumbai/AssetRegistry";
 export { AssetRegistry__factory } from "./factories/polygonMumbai/AssetRegistry__factory";
+export type { DremCollectModule } from "./polygonMumbai/DremCollectModule";
+export { DremCollectModule__factory } from "./factories/polygonMumbai/DremCollectModule__factory";
 export type { DremHub } from "./polygonMumbai/DremHub";
 export { DremHub__factory } from "./factories/polygonMumbai/DremHub__factory";
 export type { FeeController } from "./polygonMumbai/FeeController";

@@ -44,7 +44,7 @@ export class DeploymentInfo {
             stepInfoStructArray.push(stepInfoStruct);
         }
 
-        // return teh step info struct array
+        // return the step info struct array
         return stepInfoStructArray;
     }
 }
