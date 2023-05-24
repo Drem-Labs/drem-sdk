@@ -1,6 +1,8 @@
 import { StepInfoStruct, StepInfo } from './StepInfo';
 import { FeeInfoStruct, FeeInfo } from './FeeInfo';
 
+const STRUCT_TYPE = '(address,string,string,address,(address,uint8,uint256,bytes)[],(uint24,uint24,uint24,uint24,address))';
+
 export type DeploymentInfoStruct = [string, string, string, string, StepInfoStruct[], FeeInfoStruct];
 
 // deployment info, which can be created and exported to a struct
@@ -33,6 +35,11 @@ export class DeploymentInfo {
             ];
     }
 
+    // get the type of the struct --> in VaultDeployer.d.ts
+    structType(): string {
+        return STRUCT_TYPE;
+    }
+
     // internal function to construct the step info struct
     private _stepInfoStructArray(): StepInfoStruct[] {
         // create an array to write to
@@ -46,6 +53,11 @@ export class DeploymentInfo {
 
         // return the step info struct array
         return stepInfoStructArray;
+    }
+
+    // internal function for getting step info structs
+    private _stepInfoStructTypes(): any[] {
+
     }
 }
 

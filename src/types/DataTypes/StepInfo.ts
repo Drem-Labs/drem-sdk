@@ -23,5 +23,15 @@ export class StepInfo {
         // format the struct as it should be
         return [this.interactionAddress, this.parentIndex, this.windPercent, this.fixedArgData];
     }
+
+    // get the struct type
+    structType(): string[] {
+        return [
+            'address',
+            'uint',
+            'uint',
+            'bytes'
+            ];
+    }
 }
 
