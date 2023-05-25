@@ -16,9 +16,9 @@ describe('Collect', () => {
 
     describe('inititalize', () => {
         it('should be inititalizable', async () => {
-            // create a profile for bob
+            // create a profile for alice
                 // note: need to add .test on query, but not on creation
-            var bobId = await createProfile(manager, user, 'drembob.test');
+            var aliceId = await createProfile(manager, user, 'dremalice.test');
 
             // create a step tree
             // funds mover will be the collect module
@@ -38,7 +38,7 @@ describe('Collect', () => {
             var initData = new InitData(collectSettings, deploymentInfo, stepTree);
 
             // create some post data
-            var postData = new PostData(manager, bobId, (await initData.toBytes()));
+            var postData = new PostData(manager, aliceId, (await initData.toBytes()));
 
             // make a post from the user
                 // appears not to be working due to a whitelisting issue
