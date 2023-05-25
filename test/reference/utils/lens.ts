@@ -1,4 +1,4 @@
-import { * as ethers } from 'ethers';
+import * as ethers from 'ethers';
 import { Wallet } from 'ethers';
 import { DremManager } from '../../../src/manager';
 
@@ -16,7 +16,7 @@ export class CreateProfileData {
     followModuleInitData: string = '0x00';
     followNFTURI: string = '';
 
-    constructor(manager: DremManager to: string, handle: string) {
+    constructor(manager: DremManager, to: string, handle: string) {
         // set the data members
         this.to = to;
         this.handle = handle;
@@ -90,7 +90,7 @@ export async function createProfile(manager: DremManager, user: Wallet, handle: 
     var sdk = manager.sdk();
 
     // create the profile data
-    var profileData = CreateProfileData(manager, user.address, handle);
+    var profileData = new CreateProfileData(manager, user.address, handle);
 
     // create a profile
     await sdk.lens.ProfileCreation.proxyCreateProfile(profileData.toStruct());

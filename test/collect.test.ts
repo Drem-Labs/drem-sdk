@@ -4,7 +4,7 @@ import { InitData } from '../src/types/DremLens/InitData';
 import { CollectSettings } from '../src/types/DremLens/CollectSettings';
 import { manager, user } from './reference/setup';
 import { createProfile, PostData } from './reference/utils/lens';
-import { createMockTranserStepTree } from './reference/utils/deploy';
+import { createMockTransferStepTree } from './reference/utils/deploy';
 
 
 describe('Collect', () => {
@@ -21,7 +21,7 @@ describe('Collect', () => {
 
             // create a step tree
             // funds mover will be the collect module
-            var stepTree = await createMockTranserStepTree(manager, user, collectModule.address);
+            var stepTree = await createMockTransferStepTree(manager, user, collectModule.address);
 
             // get the step info
             var stepInfoArray = await stepTree.toStepInfoArray();

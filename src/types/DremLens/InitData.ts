@@ -1,4 +1,4 @@
-import { * as ethers } from 'ethers';
+import * as ethers from 'ethers';
 import { CollectSettings, CollectSettingsStruct } from './CollectSettings';
 import { DeploymentInfo, DeploymentInfoStruct } from '../DataTypes/DeploymentInfo';
 import { StepTree } from '../../stepTree';
@@ -50,8 +50,9 @@ export class InitData {
         var types = this.structTypes();
 
         // encode the struct with ethers and return it
-        var bytes = ethers.utils.defaultAbiEncoder(types, values);
+        var bytes = ethers.utils.defaultAbiCoder.encode(types, values);
 
+        return bytes;
     }
 }
 

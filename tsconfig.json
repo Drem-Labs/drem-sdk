@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true
+  },
+  "filesGlob": [
+      "./**/*.ts",
+      "!./node_modules/**/*.ts",
+      "!./src/base/**/*"
+  ]
+}

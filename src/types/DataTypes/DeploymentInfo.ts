@@ -54,11 +54,6 @@ export class DeploymentInfo {
         // return the step info struct array
         return stepInfoStructArray;
     }
-
-    // internal function for getting step info structs
-    private _stepInfoStructTypes(): any[] {
-
-    }
 }
 
 /* To Do:
