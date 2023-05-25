@@ -8,16 +8,14 @@ import { TransferStep } from '../../../src/steps/transfer/transferStep';
 import { DeploymentInfo } from '../../../src/types/DataTypes/DeploymentInfo';
 import { FeeInfo } from '../../../src/types/DataTypes/FeeInfo';
 
-// function that just deploys a simple mock transfer vault
-export async function deployMockTransferVault(user: Wallet, manager: DremManager): Promise<Vault> {
-    // create a vault deployer
-    var vaultDeployer = new VaultDeployer(manager);
+// function that creates a step tree
+// need a funds mover to set allowances
+export async function createMockTranserStepTree(manager: DremManager, user: Wallet, fundsMover: string): StepTree {
+    // start a tree
+    var stepTree = new StepTree(manager);
 
     // get the mock erc20
     var mockERC20 = manager.sdk().testing.MockERC20;
-
-    // start a tree
-    var stepTree = new StepTree(manager);
 
     // create a transfer step
     var transferStep = new TransferStep(manager);
@@ -36,7 +34,16 @@ export async function deployMockTransferVault(user: Wallet, manager: DremManager
     await transferStep.setFundsIn(1, mockERC20.address);
 
     // check the alloance with the transfer step
-    await transferStep.checkAllowance(vaultDeployer.base.address);
+    await transferStep.checkAllowance(fundsMover);
+}
+
+// function that just deploys a simple mock transfer vault
+export async function deployMockTransferVault(user: Wallet, manager: DremManager): Promise<Vault> {
+    // create a vault deployer
+    var vaultDeployer = new VaultDeployer(manager);
+
+    // make a tree
+    var stepTree = await createMockTranserStepTree(manager, user, vaultDeployer.base.address);
 
     // create some null fee info
     var feeInfo = new FeeInfo(0, 0, 0, 0, user.address);

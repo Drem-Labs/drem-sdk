@@ -59,4 +59,6 @@ export class InitData {
 - should be used in conjunction with the Post endpoint of the Lens API: https://docs.lens.xyz/docs/create-post-typed-data
     - really just constructing this data type and calling toBytes() --> feed into UnknownCollectModuleParams: https://docs.lens.xyz/docs/create-post-typed-data#unknowncollectmodule
         - see drem-core repository for collect module address: https://github.com/Drem-Labs/drem-core/
+- why isn't this exportable from the step tree?
+    - need to give it collect settings and deployment info, which are both unique from the step tree, warranting its own object
 */

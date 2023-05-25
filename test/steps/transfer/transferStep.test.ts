@@ -22,7 +22,7 @@ describe('TransferStep', () => {
 
     // deployment tests both init and winding capabilities
     describe('deployment', () => {
-        it.concurrent('should be deployable', async () => {
+        it('should be deployable', async () => {
             // start a tree
             var stepTree = new StepTree(manager);
 

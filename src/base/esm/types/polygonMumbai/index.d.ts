@@ -1,3 +1,5 @@
+import type * as lens from "./lens";
+export type { lens };
 import type * as steps from "./steps";
 export type { steps };
 import type * as testing from "./testing";

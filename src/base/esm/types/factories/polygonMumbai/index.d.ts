@@ -1,3 +1,4 @@
+export * as lens from "./lens";
 export * as steps from "./steps";
 export * as testing from "./testing";
 export { AssetRegistry__factory } from "./AssetRegistry__factory";

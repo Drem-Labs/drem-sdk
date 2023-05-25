@@ -9,13 +9,17 @@ export declare function getPolygonMumbaiSdk(defaultSignerOrProvider: Signer | pr
     PriceAggreagtor: types.polygonMumbai.PriceAggreagtor;
     AssetRegistry: types.polygonMumbai.AssetRegistry;
     VaultDeployer: types.polygonMumbai.VaultDeployer;
+    DremCollectModule: types.polygonMumbai.DremCollectModule;
     Vault: types.polygonMumbai.Vault;
     steps: {
         TransferStep: types.polygonMumbai.steps.TransferStep;
         UniswapV3SwapStep: types.polygonMumbai.steps.UniswapV3SwapStep;
     };
-    DremCollectModule: types.polygonMumbai.DremCollectModule;
     testing: {
         MockERC20: types.polygonMumbai.testing.MockERC20;
+    };
+    lens: {
+        LensHub: types.polygonMumbai.lens.LensHub;
+        ProfileCreation: types.polygonMumbai.lens.ProfileCreation;
     };
 };
