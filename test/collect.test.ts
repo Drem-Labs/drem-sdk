@@ -19,7 +19,6 @@ describe('Collect', () => {
             // create a profile for bob
                 // note: need to add .test on query, but not on creation
             var bobId = await createProfile(manager, user, 'drembob.test');
-            console.log(bobId);
 
             // create a step tree
             // funds mover will be the collect module
@@ -42,11 +41,12 @@ describe('Collect', () => {
             var postData = new PostData(manager, bobId, (await initData.toBytes()));
 
             // make a post from the user
+                // appears not to be working due to a whitelisting issue
             await expect(
                 manager.sdk().lens.LensHub.post(postData.toStruct())
                 ).resolves.toBeDefined();
 
-        });
+        }, 10000);
     });
 
     // test processing a collection

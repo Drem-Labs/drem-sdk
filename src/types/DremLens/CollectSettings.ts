@@ -1,5 +1,5 @@
 // constant struct type
-const STRUCT_TYPE = "bool";
+const STRUCT_TYPE = "(bool)";
 
 export type CollectSettingsStruct = [boolean];
 

@@ -39,7 +39,7 @@ export class InitData {
         return [
             this.collectSettings.structType(),
             this.deploymentInfo.structType(),
-            "string[]"
+            "bytes[]"
             ];
     }
 
