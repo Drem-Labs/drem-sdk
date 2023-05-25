@@ -1,6 +1,7 @@
 import * as ethers from 'ethers';
 import { Wallet } from 'ethers';
 import { DremManager } from '../../../src/manager';
+import { giveMatic } from '../setup';
 
 // error for lens stuff
 class LensError extends Error {}
@@ -10,7 +11,7 @@ export type CreateProfileDataStruct = [string, string, string, string, string, s
 // profile creation class
 export class CreateProfileData {
     to: string;
-    handle: string;
+    handle: string;  // this is not exactly what is passed in, but it maintains structure for use with the lens smart contract
     imageURI: string = '';
     followModule: string;
     followModuleInitData: string = '0x00';
@@ -19,7 +20,13 @@ export class CreateProfileData {
     constructor(manager: DremManager, to: string, handle: string) {
         // set the data members
         this.to = to;
-        this.handle = handle;
+
+        if (!handle.endsWith('.test')) {
+            throw new LensError('handle must end with .test');
+        }
+        else {
+            this.handle = handle.replace('.test', '');
+        }
 
         // get the follow module
         this._getFollowModule(manager);
@@ -89,6 +96,9 @@ export async function createProfile(manager: DremManager, user: Wallet, handle: 
     // get the sdk
     var sdk = manager.sdk();
 
+    // need some matic to execute the transaction
+    await giveMatic(user.address, 1);
+
     // create the profile data
     var profileData = new CreateProfileData(manager, user.address, handle);
 
@@ -96,7 +106,7 @@ export async function createProfile(manager: DremManager, user: Wallet, handle: 
     await sdk.lens.ProfileCreation.proxyCreateProfile(profileData.toStruct());
 
     // get the profile id by checking the handle (as long as the profile creation worked)
-    var profileId = (await sdk.lens.LensHub.getProfileIdByHandle(handle)).toNumber();
+    var profileId = (await sdk.lens.LensHub.getProfileIdByHandle(handle));
 
-    return profileId;
+    return profileId.toNumber();
 }

@@ -17,7 +17,9 @@ describe('Collect', () => {
     describe('inititalize', () => {
         it('should be inititalizable', async () => {
             // create a profile for bob
-            var bobId = await createProfile(manager, user, 'drembob');
+                // note: need to add .test on query, but not on creation
+            var bobId = await createProfile(manager, user, 'drembob.test');
+            console.log(bobId);
 
             // create a step tree
             // funds mover will be the collect module

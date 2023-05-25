@@ -23,7 +23,7 @@ export async function createMockTransferStepTree(manager: DremManager, user: Wal
     // insert the transfer step into the tree
     await stepTree.insert(0, transferStep, 0);
 
-    // give matic to the user
+    // give matic to the user to execute transactions
     await giveMatic(user.address, 1);
 
     // user needs some funds
