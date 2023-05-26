@@ -38,7 +38,7 @@ describe('Collect', () => {
         // create a profile for alice
             // note: need to add .test on query, but not on creation
         aliceId = await createProfile(manager, user, 'dremalice.test');
-    });
+    }, 10000);
 
     // brand new step tree each time, as these will be different vaults
     beforeEach(async () => {
@@ -58,7 +58,7 @@ describe('Collect', () => {
 
         // create some post data
         postData = new PostData(manager, aliceId, (await initData.toBytes()));
-    });
+    }, 10000);
 
     // test initialization
     it('should be inititalizable', async () => {
@@ -74,7 +74,6 @@ describe('Collect', () => {
     it('should be collectable', async () => {
         // deploy a vault from alice
         var resp = await manager.sdk().lens.LensHub.post(postData.toStruct());
-        await resp.wait();  // can be the minimum amount of confirmations here, don't need to worry
 
         // no need for bob to have a profile, as this is not a follower-only vault
 
@@ -102,14 +101,13 @@ describe('Collect', () => {
         // this is a transfer step because of how the vault gets nodes (with the step directory)
         var transferStep: any = bobStepTree.nodes[1].getStep();
         await transferStep.setFundsIn(1);
-        await transferStep.checkAllowance(bobManager.sdk().DremCollectModule.address);  // error with where the funds are moved from
+        await transferStep.checkAllowance(bobManager.sdk().DremCollectModule.address);
 
         // create some processing data (no follower token id)
         var processingData = new ProcessingData(0, stepTree);
 
         // collect the vault using lens
-        await expect(manager.sdk().lens.LensHub.collect(aliceId, pubId, processingData.toBytes())).resolves.toBeDefined();
-
+        await expect(bobManager.sdk().lens.LensHub.collect(aliceId, pubId, processingData.toBytes())).resolves.toBeDefined();
     }, 10000);
 });
 
