@@ -113,7 +113,8 @@ export class Node {
         return this.key;
     }
 
-    getStep(): BaseStep {
+    // this needs to be delimited to allow the step directory to take over
+    getStep(): any {
         return this.step;
     }
 

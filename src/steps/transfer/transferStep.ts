@@ -32,8 +32,12 @@ export class TransferStep extends BaseStep {
 
     // setter for variable arg data
     // allow any number to be input, as this will be converted when getting variable arg data
-    async setFundsIn(amount: number, denominationAssetAddress: string): Promise<void> {
-        this.denominationAsset = new Contract(denominationAssetAddress, ERC20_ABI, this.manager.defaultSignerOrProvider);
+    async setFundsIn(amount: number, denominationAssetAddress: string = ''): Promise<void> {
+        // set the denomination asset if recommended
+        if (denominationAssetAddress) {
+            this.denominationAsset = new Contract(denominationAssetAddress, ERC20_ABI, this.manager.defaultSignerOrProvider);
+        }
+
         this.amount = amount;
 
         // check the funds in, and set them to 0 if they are incorrect
@@ -42,7 +46,7 @@ export class TransferStep extends BaseStep {
 
             // throw the error
             throw error;
-        })
+        });
     }
 
     // convert the readable data into binary when requested to get the variable arg data

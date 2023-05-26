@@ -5,9 +5,11 @@ import { DeploymentInfo } from '../src/types/DataTypes/DeploymentInfo';
 import { FeeInfo } from '../src/types/DataTypes/FeeInfo';
 import { InitData } from '../src/types/DremLens/InitData';
 import { CollectSettings } from '../src/types/DremLens/CollectSettings';
+import { ProcessingData } from '../src/types/DremLens/ProcessingData';
 import { ethers, chainId, manager, user } from './reference/setup';
 import { createProfile, PostData } from './reference/utils/lens';
 import { createMockTransferStepTree } from './reference/utils/deploy';
+import { giveMatic } from './reference/setup';
 
 
 describe('Collect', () => {
@@ -68,7 +70,7 @@ describe('Collect', () => {
 
     }, 10000);
 
-    // test processing a collection
+    // test processing a collection (from bob's perspective, not alice's)
     it('should be collectable', async () => {
         // deploy a vault from alice
         var resp = await manager.sdk().lens.LensHub.post(postData.toStruct());
@@ -77,15 +79,35 @@ describe('Collect', () => {
         // no need for bob to have a profile, as this is not a follower-only vault
 
         // need to get alice's post (will be done via GraphQL in production, but getting it from the chain here)
-        var filter = bobManager.sdk().lens.LensHub.filters.PostCreated(aliceId);
+        var lensHub = bobManager.sdk().lens.LensHub;
+        var filter = lensHub.filters.PostCreated(aliceId);
+        var events = await lensHub.queryFilter(filter, 'latest');
+        var pubId = events[0].args.pubId;
 
+        // use the pub id, as this can be used with the SDK to get the associated vault
+            // this makes more sense as a workflow, as there are likely to be posts that are not vaults
         // get the vault, based on a publication id
+        var vault = await getLensVault(bobManager, aliceId, pubId);
 
         // get the step tree out of the vault
+        var bobStepTree = await vault.getTree();
 
         // give some matic & mockERC20
+        await giveMatic(bob.address, 1);
+        var mockERC20 = bobManager.sdk().testing.MockERC20;
+        var preciseAmount = (1 * (10 ** (await mockERC20.decimals()))).toString();
+        await mockERC20.mint(bob.address, preciseAmount);
 
-        // collect the vault
+        // set the step tree to use the mock erc20 granted
+        // this is a transfer step because of how the vault gets nodes (with the step directory)
+        var transferStep: any = bobStepTree.nodes[1].getStep();
+        await transferStep.setFundsIn(1);
+
+        // create some processing data (no follower token id)
+        var processingData = new ProcessingData(0, stepTree);
+
+        // collect the vault using lens
+        await expect(manager.sdk().lens.LensHub.collect(aliceId, pubId, processingData.toBytes())).resolves.toBeDefined();
 
     }, 10000);
 });

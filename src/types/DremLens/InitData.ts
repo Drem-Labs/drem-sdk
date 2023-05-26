@@ -1,11 +1,11 @@
-import * as ethers from 'ethers';
 import { CollectSettings, CollectSettingsStruct } from './CollectSettings';
 import { DeploymentInfo, DeploymentInfoStruct } from '../DataTypes/DeploymentInfo';
 import { StepTree } from '../../stepTree';
+import { DremLensDataType } from '../DremLens';
 
 export type InitDataStruct = [CollectSettingsStruct, DeploymentInfoStruct, string[]];
 
-export class InitData {
+export class InitData extends DremLensDataType {
     // collect settings
     collectSettings: CollectSettings;
 
@@ -17,6 +17,8 @@ export class InitData {
 
     // constructor: collect settings, deployment info, step tree
     constructor(collectSettings: CollectSettings, deploymentInfo: DeploymentInfo, stepTree: StepTree) {
+        super();
+
         // set the internal data members
         this.collectSettings = collectSettings;
         this.deploymentInfo = deploymentInfo;
@@ -39,20 +41,8 @@ export class InitData {
         return [
             this.collectSettings.structType(),
             this.deploymentInfo.structType(),
-            "bytes[]"
+            'bytes[]'
             ];
-    }
-
-
-    // make a toBytes, so this struct can be fed into a post
-    async toBytes(): Promise<string> {
-        var values = await this.toStruct();
-        var types = this.structTypes();
-
-        // encode the struct with ethers and return it
-        var bytes = ethers.utils.defaultAbiCoder.encode(types, values);
-
-        return bytes;
     }
 }
 
