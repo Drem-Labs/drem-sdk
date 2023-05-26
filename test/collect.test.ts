@@ -24,12 +24,9 @@ describe('Collect', () => {
             // funds mover will be the collect module
             var stepTree = await createMockTransferStepTree(manager, user, collectModule.address);
 
-            // get the step info
-            var stepInfoArray = await stepTree.toStepInfoArray();
-
             // set the fee and deployment info
             var feeInfo = new FeeInfo(0, 0, 0, 0, user.address);
-            var deploymentInfo = new DeploymentInfo(user.address, 'Sample Vault', 'SV', mockERC20.address, feeInfo, stepInfoArray);
+            var deploymentInfo = new DeploymentInfo(user.address, 'Sample Vault', 'SV', mockERC20.address, feeInfo, stepTree);
 
             // create the collect settings
             var collectSettings = new CollectSettings(false);

@@ -41,3 +41,8 @@ export class DremManager {
         return this.baseSdk;
     }
 }
+
+/* NOTES
+- DremManager should not carry an address, as this is an asynchronous call that only can come out of the signer
+    - the address of a user should always be available from the wallet provider anyway, which makes storage here redundant and potentially confusing
+*/

@@ -28,7 +28,7 @@ export class InitData {
     async toStruct(): Promise<InitDataStruct> {
         return [
             this.collectSettings.toStruct(),
-            this.deploymentInfo.toStruct(),
+            (await this.deploymentInfo.toStruct()),
             (await this.stepTree.toVariableArgs())
             ];
     }

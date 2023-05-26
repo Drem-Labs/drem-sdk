@@ -47,4 +47,6 @@ export class FeeInfo {
 
 /* To Do:
 - add check that the collector is a valid address
+- worth it to make all .toStruct() asynchronous?
+    - at the moment, not going to do so, as only data regarding the step tree needs to be so
 */

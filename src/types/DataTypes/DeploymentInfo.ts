@@ -1,3 +1,4 @@
+import { StepTree } from '../../stepTree';
 import { StepInfoStruct, StepInfo } from './StepInfo';
 import { FeeInfoStruct, FeeInfo } from './FeeInfo';
 
@@ -11,26 +12,27 @@ export class DeploymentInfo {
     name: string;
     symbol: string;
     denominationAsset: string;
-    stepInfoArray: StepInfo[];
+    stepTree: StepTree;
     feeInfo: FeeInfo;
 
-    constructor(admin: string, name: string, symbol: string, denominationAsset: string, feeInfo: FeeInfo, stepInfoArray: StepInfo[]) {
+    // this is a synchronous call, but the step info array is complex, so passing a step tree is much simpler
+    constructor(admin: string, name: string, symbol: string, denominationAsset: string, feeInfo: FeeInfo, stepTree: StepTree) {
         this.admin = admin;
         this.name = name;
         this.symbol = symbol;
         this.denominationAsset = denominationAsset;
-        this.stepInfoArray = stepInfoArray;
+        this.stepTree = stepTree;
         this.feeInfo = feeInfo;
     }
 
     // to struct (converting all underlying stuff to a struct also)
-    toStruct(): DeploymentInfoStruct {
+    async toStruct(): Promise<DeploymentInfoStruct> {
         return [
             this.admin,
             this.name,
             this.symbol,
             this.denominationAsset,
-            this._stepInfoStructArray(),
+            (await this._stepInfoStructArray()),
             this.feeInfo.toStruct()
             ];
     }
@@ -41,13 +43,16 @@ export class DeploymentInfo {
     }
 
     // internal function to construct the step info struct
-    private _stepInfoStructArray(): StepInfoStruct[] {
+    private async _stepInfoStructArray(): Promise<StepInfoStruct[]> {
+        // get the step info array
+        var stepInfoArray = await this.stepTree.toStepInfoArray();
+
         // create an array to write to
         var stepInfoStructArray: StepInfoStruct[] = [];
 
-        // push the array with the step info structs
-        for (var i = 0; i < this.stepInfoArray.length; i += 1) {
-            var stepInfoStruct = this.stepInfoArray[i].toStruct();
+        // push the array with the step info structs (should be pretty quick, so don't worry about concurrency)
+        for (var i = 0; i < stepInfoArray.length; i += 1) {
+            var stepInfoStruct = stepInfoArray[i].toStruct();
             stepInfoStructArray.push(stepInfoStruct);
         }
 
