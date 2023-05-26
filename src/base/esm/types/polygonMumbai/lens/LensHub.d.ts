@@ -677,10 +677,12 @@ export interface LensHubInterface extends utils.Interface {
         "Approval(address,address,uint256)": EventFragment;
         "ApprovalForAll(address,address,bool)": EventFragment;
         "Transfer(address,address,uint256)": EventFragment;
+        "PostCreated(uint256,uint256,string,address,bytes,address,bytes,uint256)": EventFragment;
     };
     getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
     getEvent(nameOrSignatureOrTopic: "ApprovalForAll"): EventFragment;
     getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
+    getEvent(nameOrSignatureOrTopic: "PostCreated"): EventFragment;
 }
 export interface ApprovalEventObject {
     owner: string;
@@ -715,6 +717,27 @@ export type TransferEvent = TypedEvent<[
     BigNumber
 ], TransferEventObject>;
 export type TransferEventFilter = TypedEventFilter<TransferEvent>;
+export interface PostCreatedEventObject {
+    profileId: BigNumber;
+    pubId: BigNumber;
+    contentURI: string;
+    collectModule: string;
+    collectModuleReturnData: string;
+    referenceModule: string;
+    referenceModuleReturnData: string;
+    timestamp: BigNumber;
+}
+export type PostCreatedEvent = TypedEvent<[
+    BigNumber,
+    BigNumber,
+    string,
+    string,
+    string,
+    string,
+    string,
+    BigNumber
+], PostCreatedEventObject>;
+export type PostCreatedEventFilter = TypedEventFilter<PostCreatedEvent>;
 export interface LensHub extends BaseContract {
     connect(signerOrProvider: Signer | Provider | string): this;
     attach(addressOrName: string): this;
@@ -1161,6 +1184,8 @@ export interface LensHub extends BaseContract {
         ApprovalForAll(owner?: PromiseOrValue<string> | null, operator?: PromiseOrValue<string> | null, approved?: null): ApprovalForAllEventFilter;
         "Transfer(address,address,uint256)"(from?: PromiseOrValue<string> | null, to?: PromiseOrValue<string> | null, tokenId?: PromiseOrValue<BigNumberish> | null): TransferEventFilter;
         Transfer(from?: PromiseOrValue<string> | null, to?: PromiseOrValue<string> | null, tokenId?: PromiseOrValue<BigNumberish> | null): TransferEventFilter;
+        "PostCreated(uint256,uint256,string,address,bytes,address,bytes,uint256)"(profileId?: PromiseOrValue<BigNumberish> | null, pubId?: PromiseOrValue<BigNumberish> | null, contentURI?: null, collectModule?: null, collectModuleReturnData?: null, referenceModule?: null, referenceModuleReturnData?: null, timestamp?: null): PostCreatedEventFilter;
+        PostCreated(profileId?: PromiseOrValue<BigNumberish> | null, pubId?: PromiseOrValue<BigNumberish> | null, contentURI?: null, collectModule?: null, collectModuleReturnData?: null, referenceModule?: null, referenceModuleReturnData?: null, timestamp?: null): PostCreatedEventFilter;
     };
     estimateGas: {
         approve(to: PromiseOrValue<string>, tokenId: PromiseOrValue<BigNumberish>, overrides?: Overrides & {

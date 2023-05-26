@@ -198,6 +198,61 @@ const _abi = [
         type: "event",
     },
     {
+        anonymous: false,
+        inputs: [
+            {
+                indexed: true,
+                internalType: "uint256",
+                name: "profileId",
+                type: "uint256",
+            },
+            {
+                indexed: true,
+                internalType: "uint256",
+                name: "pubId",
+                type: "uint256",
+            },
+            {
+                indexed: false,
+                internalType: "string",
+                name: "contentURI",
+                type: "string",
+            },
+            {
+                indexed: false,
+                internalType: "address",
+                name: "collectModule",
+                type: "address",
+            },
+            {
+                indexed: false,
+                internalType: "bytes",
+                name: "collectModuleReturnData",
+                type: "bytes",
+            },
+            {
+                indexed: false,
+                internalType: "address",
+                name: "referenceModule",
+                type: "address",
+            },
+            {
+                indexed: false,
+                internalType: "bytes",
+                name: "referenceModuleReturnData",
+                type: "bytes",
+            },
+            {
+                indexed: false,
+                internalType: "uint256",
+                name: "timestamp",
+                type: "uint256",
+            },
+        ],
+        name: "PostCreated",
+        type: "event",
+    },
+    {
         inputs: [
             {
                 internalType: "address",

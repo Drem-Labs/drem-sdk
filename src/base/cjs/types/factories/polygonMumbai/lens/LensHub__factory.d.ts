@@ -155,6 +155,51 @@ export declare class LensHub__factory {
         readonly name: "Transfer";
         readonly type: "event";
     }, {
+        readonly anonymous: false;
+        readonly inputs: readonly [{
+            readonly indexed: true;
+            readonly internalType: "uint256";
+            readonly name: "profileId";
+            readonly type: "uint256";
+        }, {
+            readonly indexed: true;
+            readonly internalType: "uint256";
+            readonly name: "pubId";
+            readonly type: "uint256";
+        }, {
+            readonly indexed: false;
+            readonly internalType: "string";
+            readonly name: "contentURI";
+            readonly type: "string";
+        }, {
+            readonly indexed: false;
+            readonly internalType: "address";
+            readonly name: "collectModule";
+            readonly type: "address";
+        }, {
+            readonly indexed: false;
+            readonly internalType: "bytes";
+            readonly name: "collectModuleReturnData";
+            readonly type: "bytes";
+        }, {
+            readonly indexed: false;
+            readonly internalType: "address";
+            readonly name: "referenceModule";
+            readonly type: "address";
+        }, {
+            readonly indexed: false;
+            readonly internalType: "bytes";
+            readonly name: "referenceModuleReturnData";
+            readonly type: "bytes";
+        }, {
+            readonly indexed: false;
+            readonly internalType: "uint256";
+            readonly name: "timestamp";
+            readonly type: "uint256";
+        }];
+        readonly name: "PostCreated";
+        readonly type: "event";
+    }, {
         readonly inputs: readonly [{
             readonly internalType: "address";
             readonly name: "to";

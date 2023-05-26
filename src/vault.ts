@@ -4,6 +4,7 @@ import { StepTree } from './stepTree';
 import { BaseStep } from './steps/BaseStep';
 import { PRECISION_FACTOR, Node } from './types/Node';
 import { StepDirectory } from './steps/StepDirectory';
+import { VaultNotFoundError } from './lib/errors';
 
 // class for a vault
 export class Vault {
