@@ -20,6 +20,9 @@ export class InsufficientAllowance extends Error {}
 export class InsufficientBalance extends Error {}
 export class AssetNotWhitelisted extends Error {}
 
+// vault errors
+export class VaultNotFoundError extends Error {};
+
 // complex errors
 export class InvalidChainError extends Error {}
 

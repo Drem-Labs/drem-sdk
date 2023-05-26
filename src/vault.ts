@@ -1,3 +1,4 @@
+import { ethers } from 'ethers';
 import { DremManager } from './manager';
 import { StepTree } from './stepTree';
 import { BaseStep } from './steps/BaseStep';
@@ -101,11 +102,28 @@ export class Vault {
     // unwind --> pass sharesOut
 }
 
+// function to get a vault (necessary to later get step trees and prepare processing data)
+export async function getLensVault(manager: DremManager, profileId: number, pubId: number): Promise<Vault> {
+    // get publication data from the collect module --> will give the vault address
+    var collectData = await manager.sdk().DremCollectModule.getPublicationData(profileId, pubId);
+
+    // if there is no vault found, throw (can be caught and handled as not existing)
+        // if you want to check if a vault exists, this would also cost 1 call to the blockchain, making error handling cheaper than checking and getting information also
+    if (collectData.vault === ethers.constants.AddressZero) {
+        throw new VaultNotFoundError('No Vault associated with address ' + collectData.vault + ' on profile, publication: ' + profileId + ', ' + pubId);
+    }
+
+    // create a vault with the manager and address
+    var vault = new Vault(manager, collectData.vault);
+
+    // return the vault
+    return vault;
+}
+
 /*
 TO DO:
 - would be nice if base had a type
     - needs to be dependent on what chain the manager is on, which I don't have a solution for (maybe typecast on the constructor, but I'm not sure if this is possible)
-- use Promise.all() to add all the children
-    - more complex, but more efficient
 - would be good to have wind/unwind, but these are taking a backseat to the collect module
+- should test the error thrown by getLensVault
 */
