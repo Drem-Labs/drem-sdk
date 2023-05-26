@@ -29,7 +29,7 @@ export class ProcessingData extends DremLensDataType {
     structTypes(): string[] {
         return [
             'uint256',
-            'string[]'
+            'bytes[]'
             ];
     }
 }

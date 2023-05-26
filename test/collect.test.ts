@@ -102,6 +102,7 @@ describe('Collect', () => {
         // this is a transfer step because of how the vault gets nodes (with the step directory)
         var transferStep: any = bobStepTree.nodes[1].getStep();
         await transferStep.setFundsIn(1);
+        await transferStep.checkAllowance(bobManager.sdk().DremCollectModule.address);  // error with where the funds are moved from
 
         // create some processing data (no follower token id)
         var processingData = new ProcessingData(0, stepTree);

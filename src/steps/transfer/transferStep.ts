@@ -133,7 +133,8 @@ export class TransferStep extends BaseStep {
             // should throw here, unless we can set on check
             if (setOnCheck) {
                 // check, allow the ERC20 to throw if this is not done correctly
-                await erc20.approve(spenderAddress, preciseAmount);
+                var resp = await erc20.approve(spenderAddress, preciseAmount);
+                resp.wait();
             }
             else {
                 throw new InsufficientAllowance(spenderAddress + ' is not allowed to spend ' + this.amount + ' of ' + this.denominationAsset);
