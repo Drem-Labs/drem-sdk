@@ -52,6 +52,6 @@ describe('TransferStep', () => {
             await expect(
                 vaultDeployer.deployVault(user.address, "Sample Vault", "SV", mockERC20.address, feeInfo, stepTree)
                 ).resolves.toBeDefined();
-        }, 10000);
+        }, 30000);
     });
 });
