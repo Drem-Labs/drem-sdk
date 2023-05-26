@@ -19,7 +19,7 @@ export class StepInfo {
     }
 
     // export to struct
-    toStruct(): StepInfoStruct {
+    async toStruct(): Promise<StepInfoStruct> {
         // format the struct as it should be
         return [this.interactionAddress, this.parentIndex, this.windPercent, this.fixedArgData];
     }

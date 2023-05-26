@@ -33,7 +33,7 @@ export class DeploymentInfo {
             this.symbol,
             this.denominationAsset,
             (await this._stepInfoStructArray()),
-            this.feeInfo.toStruct()
+            (await this.feeInfo.toStruct())
             ];
     }
 
@@ -52,7 +52,7 @@ export class DeploymentInfo {
 
         // push the array with the step info structs (should be pretty quick, so don't worry about concurrency)
         for (var i = 0; i < stepInfoArray.length; i += 1) {
-            var stepInfoStruct = stepInfoArray[i].toStruct();
+            var stepInfoStruct = await stepInfoArray[i].toStruct();
             stepInfoStructArray.push(stepInfoStruct);
         }
 

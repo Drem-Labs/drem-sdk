@@ -12,7 +12,7 @@ export class CollectSettings {
     }
 
     // needs to go to a struct
-    toStruct(): CollectSettingsStruct {
+    async toStruct(): Promise<CollectSettingsStruct> {
         return [this.onlyFollowers];
     }
 

@@ -26,7 +26,7 @@ export class FeeInfo {
     }
 
     // to struct, which converts all of the percents with the appropriate precision factor
-    toStruct(): FeeInfoStruct {
+    async toStruct(): Promise<FeeInfoStruct> {
         return [
             this._convertFee(this.entranceFee),
             this._convertFee(this.exitFee),
@@ -47,6 +47,4 @@ export class FeeInfo {
 
 /* To Do:
 - add check that the collector is a valid address
-- worth it to make all .toStruct() asynchronous?
-    - at the moment, not going to do so, as only data regarding the step tree needs to be so
 */

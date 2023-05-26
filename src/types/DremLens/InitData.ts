@@ -27,7 +27,7 @@ export class InitData {
     // this must be asynchronous due to the amount of data being pulled out of the step tree
     async toStruct(): Promise<InitDataStruct> {
         return [
-            this.collectSettings.toStruct(),
+            (await this.collectSettings.toStruct()),
             (await this.deploymentInfo.toStruct()),
             (await this.stepTree.toVariableArgs())
             ];
